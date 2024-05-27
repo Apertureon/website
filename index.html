@@ -106,17 +106,23 @@
             gallery.appendChild(photoDiv);
     
             // Load EXIF data
-            EXIF.getData(img, function() {
-                var aperture = EXIF.getTag(this, 'FNumber');
-                var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
-                var iso = EXIF.getTag(this, 'ISOSpeedRatings');
-    
-                detailsDiv.innerHTML = `
-                    <p>Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'}</p>
-                    <p>Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'}</p>
-                    <p>ISO: ${iso || 'N/A'}</p>
-                `;
-            });
+            img.onload = function() {
+                EXIF.getData(img, function() {
+                    var aperture = EXIF.getTag(this, 'FNumber');
+                    var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
+                    var iso = EXIF.getTag(this, 'ISOSpeedRatings');
+
+                    if (!aperture && !shutterSpeed && !iso) {
+                    console.log('No EXIF Data found for:', img.src);
+                    }
+        
+                    detailsDiv.innerHTML = `
+                        <p>Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'}</p>
+                        <p>Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'}</p>
+                        <p>ISO: ${iso || 'N/A'}</p>
+                    `;
+                });
+            };
         });
     };
 </script>
