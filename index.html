@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>我的摄影作品</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
+<script src="imageList.js"></script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -62,13 +63,6 @@
     <p>探索生活中的美丽瞬间</p>
 </header>
 <div class="content">
-    <section class="gallery">
-        <div class="photo" id="photo1">
-            <img src="images/DSC_0699.jpg" alt="图片1">
-            <div class="details" id="exif-data1"></div>
-        </div>
-        <!-- 可以添加更多图片和对应的div -->
-    </section>
     <section>
         <h2>关于我</h2>
         <p>我是一位摄影爱好者，喜欢用镜头捕捉生活的每一个瞬间。我使用的设备包括Nikon D850和一系列镜头。</p>
@@ -83,16 +77,46 @@
 </footer>
 <script>
     window.onload = function() {
-        const imageIds = ['photo1']; // make sure this array contains the IDs of your image containers
-        imageIds.forEach(id => {
-            const imgElement = document.getElementById(id).getElementsByTagName('img')[0];
-            EXIF.getData(imgElement, function() {
-                const exifData = EXIF.pretty(this);
-                const outputDiv = document.getElementById('exif-data' + id.substring(5));
-                outputDiv.innerHTML = exifData.replace(/\n/g, "<br>");
+        const gallery = document.querySelector('.gallery'); // Get the gallery element
+    
+        imageList.forEach((src, index) => {
+            // Create div for each photo
+            const photoDiv = document.createElement('div');
+            photoDiv.className = 'photo';
+            photoDiv.id = 'photo' + index;
+    
+            // Create img element
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Photo ' + (index + 1);
+    
+            // Create details div
+            const detailsDiv = document.createElement('div');
+            detailsDiv.className = 'details';
+            detailsDiv.id = 'exif-data' + index;
+    
+            // Append img and detailsDiv to photoDiv
+            photoDiv.appendChild(img);
+            photoDiv.appendChild(detailsDiv);
+    
+            // Append photoDiv to gallery
+            gallery.appendChild(photoDiv);
+    
+            // Load EXIF data
+            EXIF.getData(img, function() {
+                var aperture = EXIF.getTag(this, 'FNumber');
+                var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
+                var iso = EXIF.getTag(this, 'ISOSpeedRatings');
+    
+                detailsDiv.innerHTML = `
+                    <p>Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'}</p>
+                    <p>Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'}</p>
+                    <p>ISO: ${iso || 'N/A'}</p>
+                `;
             });
         });
     };
-</script>
+    </script>
+    
 </body>
 </html>
