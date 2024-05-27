@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>我的摄影作品</title>
+<title>My Photography Work</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
 <script src="imageList.js"></script>
 <style>
@@ -43,6 +43,9 @@
         font-size: 0.8em;
         opacity: 0.8;
         margin-top: 5px;
+        text-align: left; /* Align text to the left */
+        padding-left: 20px; /* Indent text */
+        white-space: nowrap; /* Keep all items on the same line */
     }
     footer {
         text-align: center;
@@ -59,24 +62,24 @@
 </head>
 <body>
 <header>
-    <h1>我的摄影作品</h1>
-    <p>探索生活中的美丽瞬间</p>
+    <h1>My Photography Work</h1>
+    <p>Exploring the beauty in everyday life</p>
 </header>
 <div class="content">
     <section class="gallery">
         <!-- Photos will be dynamically added here -->
     </section>
     <section>
-        <h2>关于我</h2>
-        <p>我是一位摄影爱好者，喜欢用镜头捕捉生活的每一个瞬间。我使用的设备包括Nikon D850和一系列镜头。</p>
+        <h2>About Me</h2>
+        <p>I am a photography enthusiast. My equipment: Nikon Z6.</p>
     </section>
     <section>
-        <h2>联系方式</h2>
-        <p>如需与我联系，请发送电子邮件至：example@email.com</p>
+        <h2>Contact</h2>
+        <p>If you need to contact me, please email: example@email.com</p>
     </section>
 </div>
 <footer>
-    <p>&copy; 2024 我的摄影作品</p>
+    <p>&copy; 2024 My Photography Work</p>
 </footer>
 <script>
     window.onload = function() {
@@ -116,11 +119,9 @@
                     console.log('No EXIF Data found for:', img.src);
                     }
         
-                    detailsDiv.innerHTML = `
-                        <p>Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'}</p>
-                        <p>Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'}</p>
-                        <p>ISO: ${iso || 'N/A'}</p>
-                    `;
+                    detailsDiv.innerHTML = 
+                    `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ISO ${iso || 'N/A'}`;
+                    ;
                 });
             };
         });
