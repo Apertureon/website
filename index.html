@@ -43,8 +43,9 @@
         font-size: 0.8em;
         opacity: 0.8;
         margin-top: 5px;
-        text-align: left; /* Align text to the left */
+        text-align: center; /* Align text to the */
         padding-left: 20px; /* Indent text */
+        padding-bottom: 20px;
         white-space: nowrap; /* Keep all items on the same line */
     }
     footer {
@@ -120,7 +121,7 @@
                     }
         
                     detailsDiv.innerHTML = 
-                    `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ISO ${iso || 'N/A'}`;
+                    `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'}  |  ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'}  |  ISO ${iso || 'N/A'}`;
                     ;
                 });
             };
