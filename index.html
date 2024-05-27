@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>我的摄影作品</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f4;
+        color: #333;
+    }
+    header, .content, footer {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header {
+        background: #333;
+        color: white;
+        text-align: center;
+    }
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .photo {
+        width: 45%;
+        margin: 2.5%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .photo img {
+        width: 100%;
+        height: auto;
+    }
+    .details {
+        font-size: 0.8em;
+        opacity: 0.8;
+        margin-top: 5px;
+    }
+    footer {
+        text-align: center;
+        font-size: 0.8em;
+        color: #666;
+    }
+    @media (max-width: 600px) {
+        .photo {
+            width: 100%;
+            margin: 5px 0;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>我的摄影作品</h1>
+    <p>探索生活中的美丽瞬间</p>
+</header>
+<div class="content">
+    <section class="gallery">
+        <div class="photo" id="photo1">
+            <img src="images/DSC_0699.jpg" alt="图片1">
+            <div class="details" id="exif-data1"></div>
+        </div>
+        <!-- 可以添加更多图片和对应的div -->
+    </section>
+    <section>
+        <h2>关于我</h2>
+        <p>我是一位摄影爱好者，喜欢用镜头捕捉生活的每一个瞬间。我使用的设备包括Nikon D850和一系列镜头。</p>
+    </section>
+    <section>
+        <h2>联系方式</h2>
+        <p>如需与我联系，请发送电子邮件至：example@email.com</p>
+    </section>
+</div>
+<footer>
+    <p>&copy; 2024 我的摄影作品</p>
+</footer>
+<script>
+    window.onload = function() {
+        const imageIds = ['photo1']; // make sure this array contains the IDs of your image containers
+        imageIds.forEach(id => {
+            const imgElement = document.getElementById(id).getElementsByTagName('img')[0];
+            EXIF.getData(imgElement, function() {
+                const exifData = EXIF.pretty(this);
+                const outputDiv = document.getElementById('exif-data' + id.substring(5));
+                outputDiv.innerHTML = exifData.replace(/\n/g, "<br>");
+            });
+        });
+    };
+</script>
+</body>
+</html>
