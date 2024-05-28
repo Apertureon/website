@@ -24,17 +24,34 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    gap: 10px; /* Provides spacing between images */
 }
 
 .photo {
-    width: 100%; /* Default to full width */
-    margin: 5px 0; /* Consistent margin for mobile */
+    flex-grow: 1;
+    margin: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .photo img {
     width: 100%;
     height: auto;
+    display: block; /* Remove extra space below images */
+}
+
+.photo.horizontal {
+    /* Styles specifically for horizontal images */
+    max-width: 25%;
+}
+
+.photo.vertical {
+    /* Styles specifically for vertical images */
+    max-width: 16.7%;
+}
+
+.photo.panoramic {
+    /* Styles specifically for panoramic images */
+    max-width: 50%;
 }
 
 .details {
@@ -52,8 +69,17 @@ footer {
     color: #666;
 }
 
-@media (min-width: 1500px) {
-    .photo {
-        width: 25%; /* Four photos per row on large desktops */
+@media (max-width: 1200px) {
+    .photo.horizontal {
+        max-width: 100%; /* Allow horizontal images to take full width on smaller screens */
+    }
+
+    .photo.vertical {
+        max-width: 50%; /* Give more space to vertical images on smaller screens */
+    }
+
+    .photo.panoramic {
+        max-width: 100%; /* Panoramic images always take full width */
     }
 }
+
