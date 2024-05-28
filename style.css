@@ -28,11 +28,10 @@ header {
 }
 
 .photo {
-    flex: 1 1 auto; /* Modify flex-grow behavior */
+    flex: 1 0 0%; /* Do not grow, start with 0% width, adjust basis as needed */
     margin: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
 
 .photo img {
     width: 100%;
@@ -75,7 +74,7 @@ footer {
         max-width: 100%; /* Simplify rules for smaller screens */
     }
     .photo.vertical {
-        max-width: 50%;
+        max-width: 10%;
     }
 }
 
