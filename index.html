@@ -3,63 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>My Photography Work</title>
+<link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
 <script src="imageList.js"></script>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f4f4f4;
-        color: #333;
-    }
-    header, .content, footer {
-        max-width: 800px;
-        margin: auto;
-        padding: 20px;
-        background: white;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    header {
-        background: #333;
-        color: white;
-        text-align: center;
-    }
-    .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
-    .photo {
-        width: 45%;
-        margin: 2.5%;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .photo img {
-        width: 100%;
-        height: auto;
-    }
-    .details {
-        font-size: 0.8em;
-        opacity: 0.8;
-        margin-top: 5px;
-        text-align: center; /* Align text to the */
-        padding-left: 20px; /* Indent text */
-        padding-bottom: 20px;
-        white-space: nowrap; /* Keep all items on the same line */
-    }
-    footer {
-        text-align: center;
-        font-size: 0.8em;
-        color: #666;
-    }
-    @media (max-width: 600px) {
-        .photo {
-            width: 100%;
-            margin: 5px 0;
-        }
-    }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <header>
@@ -121,7 +68,7 @@
                     }
         
                     detailsDiv.innerHTML = 
-                    `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'}  |  ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'}  |  ISO ${iso || 'N/A'}`;
+                    `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ISO ${iso || 'N/A'}`;
                     ;
                 });
             };

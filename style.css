@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header, .content, footer {
+    width: 100%; /* Use 100% of the viewport width */
+    margin: auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header {
+    background: #333;
+    color: white;
+    text-align: center;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.photo {
+    width: 100%; /* Default to full width */
+    margin: 5px 0; /* Consistent margin for mobile */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.photo img {
+    width: 100%;
+    height: auto;
+}
+
+.details {
+    font-size: 1em;
+    opacity: 0.8;
+    margin-top: 5px;
+    text-align: center;
+    padding-bottom: 10px;
+    white-space: nowrap;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
+}
+
+@media (min-width: 1500px) {
+    .photo {
+        width: 25%; /* Four photos per row on large desktops */
+    }
+}
