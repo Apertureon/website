@@ -33,9 +33,11 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.querySelector('.gallery');
+    console.log("Gallery element selected:", gallery);
 
     let loadedImagesCount = 0;
     const totalImages = imageList.length;
+    console.log("Total images to load:", totalImages);
 
     imageList.forEach((src, index) => {
         const photoDiv = document.createElement('div');
@@ -56,13 +58,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
         img.onload = function() {
             loadedImagesCount++;
+            console.log(`Image loaded: ${src}, Total loaded: ${loadedImagesCount}`);
+
             if (loadedImagesCount === totalImages) {
-                // Initialize Masonry after all images have loaded
+                console.log("All images loaded, initializing Masonry.");
                 var msnry = new Masonry(gallery, {
                     itemSelector: '.photo',
                     columnWidth: 200,
                     gutter: 10
                 });
+                console.log("Masonry initialized.");
             }
 
             // Load EXIF data
@@ -76,8 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     details.innerHTML = `Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
                                         `Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
                                         `ISO: ${iso || 'N/A'}`;
+                    console.log(`EXIF data set for ${src}: Aperture=${aperture}, Shutter Speed=${shutterSpeed}, ISO=${iso}`);
                 } else {
                     details.innerHTML = "No EXIF Data found.";
+                    console.log(`No EXIF data found for ${src}.`);
                 }
             });
 
@@ -85,15 +92,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (msnry) {
                 msnry.reloadItems();
                 msnry.layout();
+                console.log("Masonry layout updated.");
             }
         };
 
         // Ensure onload fires for cached images
         if (img.complete) {
             img.onload();
+            console.log(`Cached image onload fired manually for ${src}.`);
         }
     });
 });
-</script>   
+</script>  
 </body>
 </html>
