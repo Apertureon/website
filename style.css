@@ -33,9 +33,9 @@ header {
 }
 
 .photo img {
-    width: 100%;
+    max-width: 100%;  /* Ensures images don’t exceed the width of their containers */
     height: auto;
-    display: block; /* Remove extra space below images */
+    display: block;
 }
 
 .details {
