@@ -30,73 +30,64 @@
     <p>&copy; 2024 My Photography Work</p>
 </footer>
 <script>
-    window.onload = function() {
-        const gallery = document.querySelector('.gallery'); // Get the gallery element
-    
-        imageList.forEach((src, index) => {
-            // Create div for each photo
-            const photoDiv = document.createElement('div');
-            photoDiv.className = 'photo';
-            photoDiv.id = 'photo' + index;
-    
-            // Create img element
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = 'Photo ' + (index + 1);
-    
-            // Create details div
-            const detailsDiv = document.createElement('div');
-            detailsDiv.className = 'details';
-            detailsDiv.id = 'exif-data' + index;
-    
-            // Append img and detailsDiv to photoDiv
-            photoDiv.appendChild(img);
-            photoDiv.appendChild(detailsDiv);
-    
-            // Append photoDiv to gallery
-            gallery.appendChild(photoDiv);
-    
-            // Load EXIF data
-            img.onload = function() {
-                EXIF.getData(img, function() {
-                    var aperture = EXIF.getTag(this, 'FNumber');
-                    var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
-                    var iso = EXIF.getTag(this, 'ISOSpeedRatings');
+window.onload = function() {
+    const gallery = document.querySelector('.gallery'); // Get the gallery element
 
-                    if (!aperture && !shutterSpeed && !iso) {
+    imageList.forEach((src, index) => {
+        // Create div for each photo
+        const photoDiv = document.createElement('div');
+        photoDiv.className = 'photo';
+        photoDiv.id = 'photo' + index;
+
+        // Create img element
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'Photo ' + (index + 1);
+
+        // Create details div
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'details';
+        detailsDiv.id = 'exif-data' + index;
+
+        // Append img and detailsDiv to photoDiv
+        photoDiv.appendChild(img);
+        photoDiv.appendChild(detailsDiv);
+
+        // Append photoDiv to gallery
+        gallery.appendChild(photoDiv);
+
+        // Load EXIF data and classify images after they are loaded
+        img.onload = function() {
+            EXIF.getData(img, function() {
+                var aperture = EXIF.getTag(this, 'FNumber');
+                var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
+                var iso = EXIF.getTag(this, 'ISOSpeedRatings');
+
+                if (!aperture && !shutterSpeed && !iso) {
                     console.log('No EXIF Data found for:', img.src);
-                    }
-        
-                    detailsDiv.innerHTML = 
-                    `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ISO ${iso || 'N/A'}`;
-                    ;
-                });
-            };
-        });
-    };
-    document.addEventListener('DOMContentLoaded', function() {
-        const images = document.querySelectorAll('.gallery .photo img');
-        console.log(images.length + " images found");  // Check how many images are being selected
-        images.forEach(img => {
-            const setClassBasedOnRatio = function() {
-                const ratio = img.naturalWidth / img.naturalHeight;
-                console.log(img.src + " ratio: " + ratio);  // Log the ratio
-                if (ratio >= 2) {
-                    img.parentNode.classList.add('panoramic');
-                } else if (ratio >= 1) {
-                    img.parentNode.classList.add('horizontal');
-                } else {
-                    img.parentNode.classList.add('vertical');
                 }
-            };
+    
+                detailsDiv.innerHTML = `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ISO ${iso || 'N/A'}`;
+            });
 
-            if (img.complete) {
-                setClassBasedOnRatio(); // Call immediately if image is already loaded
+            // Classify the image based on its aspect ratio
+            const ratio = img.naturalWidth / img.naturalHeight;
+            console.log(img.src + " ratio: " + ratio);  // Log the ratio
+            if (ratio >= 2) {
+                img.parentNode.classList.add('panoramic');
+            } else if (ratio >= 1) {
+                img.parentNode.classList.add('horizontal');
             } else {
-                img.onload = setEachClassBasedOnRatio; // Setup event if not yet loaded
+                img.parentNode.classList.add('vertical');
             }
-        });
+        };
+
+        // If the image is already loaded (e.g., cached), call onload handler immediately
+        if (img.complete) {
+            img.onload();
+        }
     });
-</script>
+};
+</script>   
 </body>
 </html>
