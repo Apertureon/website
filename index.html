@@ -76,9 +76,11 @@
     };
     document.addEventListener('DOMContentLoaded', function() {
         const images = document.querySelectorAll('.gallery .photo img');
+        console.log(images.length + " images found");  // Check how many images are being selected
         images.forEach(img => {
             const setClassBasedOnRatio = function() {
                 const ratio = img.naturalWidth / img.naturalHeight;
+                console.log(img.src + " ratio: " + ratio);  // Log the ratio
                 if (ratio >= 2) {
                     img.parentNode.classList.add('panoramic');
                 } else if (ratio >= 1) {
