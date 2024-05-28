@@ -34,6 +34,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.querySelector('.gallery');
 
+    let loadedImagesCount = 0;
+    const totalImages = imageList.length;
+
     imageList.forEach((src, index) => {
         const photoDiv = document.createElement('div');
         photoDiv.className = 'photo';
@@ -50,18 +53,18 @@ document.addEventListener('DOMContentLoaded', function() {
         photoDiv.appendChild(img);
         photoDiv.appendChild(detailsDiv);
         gallery.appendChild(photoDiv);
-    });
 
-    // Initialize Masonry
-    var msnry = new Masonry(gallery, {
-        itemSelector: '.photo',
-        columnWidth: 200,
-        gutter: 10
-    });
-
-    // Handle image loading and EXIF data
-    gallery.querySelectorAll('img').forEach(img => {
         img.onload = function() {
+            loadedImagesCount++;
+            if (loadedImagesCount === totalImages) {
+                // Initialize Masonry after all images have loaded
+                var msnry = new Masonry(gallery, {
+                    itemSelector: '.photo',
+                    columnWidth: 200,
+                    gutter: 10
+                });
+            }
+
             // Load EXIF data
             EXIF.getData(img, function() {
                 var aperture = EXIF.getTag(this, 'FNumber');
@@ -77,13 +80,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     details.innerHTML = "No EXIF Data found.";
                 }
             });
-            
+
             // Update Masonry layout
-            msnry.reloadItems();
-            msnry.layout();
+            if (msnry) {
+                msnry.reloadItems();
+                msnry.layout();
+            }
         };
 
-        // Trigger onload if image is already loaded (cached)
+        // Ensure onload fires for cached images
         if (img.complete) {
             img.onload();
         }
