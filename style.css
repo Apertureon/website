@@ -28,10 +28,11 @@ header {
 }
 
 .photo {
-    flex-grow: 1;
+    flex: 1 1 auto; /* Modify flex-grow behavior */
     margin: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
 
 .photo img {
     width: 100%;
@@ -70,16 +71,12 @@ footer {
 }
 
 @media (max-width: 1200px) {
-    .photo.horizontal {
-        max-width: 100%; /* Allow horizontal images to take full width on smaller screens */
+    .photo.horizontal, .photo.panoramic {
+        max-width: 100%; /* Simplify rules for smaller screens */
     }
-
     .photo.vertical {
-        max-width: 50%; /* Give more space to vertical images on smaller screens */
-    }
-
-    .photo.panoramic {
-        max-width: 100%; /* Panoramic images always take full width */
+        max-width: 50%;
     }
 }
+
 

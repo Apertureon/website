@@ -77,16 +77,22 @@
     document.addEventListener('DOMContentLoaded', function() {
         const images = document.querySelectorAll('.gallery .photo img');
         images.forEach(img => {
-            img.onload = function() {
+            const setClassBasedOnRatio = function() {
                 const ratio = img.naturalWidth / img.naturalHeight;
-                if (ratio > 2) { // Panoramic
+                if (ratio >= 2) {
                     img.parentNode.classList.add('panoramic');
-                } else if (ratio > 1) { // Horizontal
+                } else if (ratio >= 1) {
                     img.parentNode.classList.add('horizontal');
-                } else { // Vertical
+                } else {
                     img.parentNode.classList.add('vertical');
                 }
             };
+
+            if (img.complete) {
+                setClassBasedOnRatio(); // Call immediately if image is already loaded
+            } else {
+                img.onload = setEachClassBasedOnRatio; // Setup event if not yet loaded
+            }
         });
     });
 </script>
