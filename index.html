@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
 <script src="imageList.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -30,64 +31,64 @@
     <p>&copy; 2024 My Photography Work</p>
 </footer>
 <script>
-window.onload = function() {
-    const gallery = document.querySelector('.gallery'); // Get the gallery element
+document.addEventListener('DOMContentLoaded', function() {
+    const gallery = document.querySelector('.gallery');
 
     imageList.forEach((src, index) => {
-        // Create div for each photo
         const photoDiv = document.createElement('div');
         photoDiv.className = 'photo';
         photoDiv.id = 'photo' + index;
 
-        // Create img element
         const img = document.createElement('img');
         img.src = src;
         img.alt = 'Photo ' + (index + 1);
 
-        // Create details div
         const detailsDiv = document.createElement('div');
         detailsDiv.className = 'details';
         detailsDiv.id = 'exif-data' + index;
 
-        // Append img and detailsDiv to photoDiv
         photoDiv.appendChild(img);
         photoDiv.appendChild(detailsDiv);
-
-        // Append photoDiv to gallery
         gallery.appendChild(photoDiv);
+    });
 
-        // Load EXIF data and classify images after they are loaded
+    // Initialize Masonry
+    var msnry = new Masonry(gallery, {
+        itemSelector: '.photo',
+        columnWidth: 200,
+        gutter: 10
+    });
+
+    // Handle image loading and EXIF data
+    gallery.querySelectorAll('img').forEach(img => {
         img.onload = function() {
+            // Load EXIF data
             EXIF.getData(img, function() {
                 var aperture = EXIF.getTag(this, 'FNumber');
                 var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
                 var iso = EXIF.getTag(this, 'ISOSpeedRatings');
 
-                if (!aperture && !shutterSpeed && !iso) {
-                    console.log('No EXIF Data found for:', img.src);
+                var details = img.nextElementSibling; // The details div
+                if (aperture || shutterSpeed || iso) {
+                    details.innerHTML = `Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
+                                        `Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
+                                        `ISO: ${iso || 'N/A'}`;
+                } else {
+                    details.innerHTML = "No EXIF Data found.";
                 }
-    
-                detailsDiv.innerHTML = `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ISO ${iso || 'N/A'}`;
             });
-
-            // Classify the image based on its aspect ratio
-            const ratio = img.naturalWidth / img.naturalHeight;
-            console.log(img.src + " ratio: " + ratio);  // Log the ratio
-            if (ratio >= 2) {
-                img.parentNode.classList.add('panoramic');
-            } else if (ratio >= 1) {
-                img.parentNode.classList.add('horizontal');
-            } else {
-                img.parentNode.classList.add('vertical');
-            }
+            
+            // Update Masonry layout
+            msnry.reloadItems();
+            msnry.layout();
         };
 
-        // If the image is already loaded (e.g., cached), call onload handler immediately
+        // Trigger onload if image is already loaded (cached)
         if (img.complete) {
             img.onload();
         }
     });
-};
+});
 </script>   
 </body>
 </html>

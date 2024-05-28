@@ -21,15 +21,14 @@ header {
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 10px; /* Provides spacing between images */
+    /* Remove flex properties if you decide they conflict with Masonry's styling */
+    margin: auto;
+    width: 100%; /* Ensure the gallery width is controlled */
 }
 
 .photo {
-    flex: 1 1 auto; 
-    margin: 5px;
+    width: auto; /* Allow Masonry to control the width */
+    margin: 5px; /* Keep margin for spacing */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -37,21 +36,6 @@ header {
     width: 100%;
     height: auto;
     display: block; /* Remove extra space below images */
-}
-
-.photo.horizontal {
-    /* Styles specifically for horizontal images */
-    max-width: 25%;
-}
-
-.photo.vertical {
-    /* Styles specifically for vertical images */
-    max-width: 16.7%;
-}
-
-.photo.panoramic {
-    /* Styles specifically for panoramic images */
-    max-width: 50%;
 }
 
 .details {
@@ -69,13 +53,10 @@ footer {
     color: #666;
 }
 
-@media (max-width: 1200px) {
-    .photo.horizontal, .photo.panoramic {
-        max-width: 100%; /* Simplify rules for smaller screens */
-    }
-    .photo.vertical {
-        max-width: 50%;
+@media only screen 
+  and (orientation: portrait) 
+  and (min-resolution: 2dppx) {
+    .details {
+        font-size: 0.8em; /* Smaller text on smaller screens */
     }
 }
-
-
