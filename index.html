@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("All images loaded, initializing Masonry.");
                 var msnry = new Masonry(gallery, {
                     itemSelector: '.photo',
-                    columnWidth: 200,
+                    columnWidth: '.photo', // This makes the column width match the actual image width
+                    percentPosition: true, // This will make the column width flexible relative to the container width
                     gutter: 10
                 });
                 console.log("Masonry initialized.");
