@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
         itemSelector: '.photo',
         columnWidth: '.grid-sizer',
         percentPosition: true, // Enable percentage-based positions
-        gutter: 10
+        
     });
 
     imageList.forEach(src => {

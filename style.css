@@ -34,6 +34,7 @@ header {
 .photo {
     margin-bottom: 10px; /* Space between rows */
     box-sizing: border-box; /* Includes padding and border in the element's width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .photo img {
@@ -57,7 +58,13 @@ footer {
 @media only screen 
   and (orientation: portrait) 
   and (min-resolution: 2dppx) {
+    .grid-sizer,
+    .photo {
+        width: 50%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
+        float: left; /* Optional: Helps manage layout without flexbox or CSS grid */
+    }
     .details {
         font-size: 0.8em; /* Smaller text on smaller screens */
     }
+
 }
