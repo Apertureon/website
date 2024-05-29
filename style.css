@@ -7,7 +7,7 @@ body {
 }
 
 header, .content, footer {
-    width: 100%; /* Use 100% of the viewport width */
+    width: 100%;
     margin: auto;
     padding: 20px;
     background: white;
@@ -21,29 +21,32 @@ header {
 }
 
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .photo {
-    margin: 5px; /* Optional if grid-gap is used */
-    break-inside: avoid; /* Prevents breaking within a grid item, useful for columns */
+    flex: 1 0 21%; /* Adjust the percentage based on desired number of columns */
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .photo img {
-    width: 100%; /* Ensures the image scales to the width of the column */
-    height: auto; /* Maintains aspect ratio */
+    width: 100%;
     display: block;
 }
 
 .details {
-    font-size: 1em;
+    font-size: 0.8em;
     opacity: 0.8;
     margin-top: 5px;
     text-align: center;
-    padding-bottom: 10px;
-    white-space: nowrap;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.8);
 }
 
 footer {
@@ -52,10 +55,9 @@ footer {
     color: #666;
 }
 
-@media only screen 
-  and (orientation: portrait) 
-  and (min-resolution: 2dppx) {
-    .details {
-        font-size: 0.8em; /* Smaller text on smaller screens */
+@media only screen and (max-width: 600px) {
+    .photo {
+        flex: 1 0 46%; /* Larger photos for smaller screens */
     }
 }
+
