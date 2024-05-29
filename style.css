@@ -7,9 +7,9 @@ body {
 }
 
 header, .content, footer {
-    width: 100%; /* Use 100% of the viewport width */
+    width: calc(100% - 40px);
     margin: auto;
-    padding: 40px;
+    padding: 0;
     background: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -27,12 +27,12 @@ header {
 
 .grid-sizer,
 .photo {
-    width: 18%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
+    width: 24%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
     float: left; /* Optional: Helps manage layout without flexbox or CSS grid */
 }
 
 .gutter-sizer { 
-    width: 2.5%; 
+    width: 1.33%; 
 }
 
 .photo {
