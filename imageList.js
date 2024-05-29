@@ -1,1 +1,1 @@
-const imageList = ["images/DSC_0470.jpg","images/DSC_0478.jpg","images/DSC_0479.jpg","images/DSC_0699.jpg","images/DSC_0706.jpg","images/DSC_0725.jpg","images/DSC_0743.jpg","images/DSC_0805.jpg","images/DSC_1428.jpg","images/DSC_1922-Pano.jpg","images/DSC_2881-HDR.jpg","images/DSC_3561.jpg"];
+const imageList = ["images/IMG_0001.jpg","images/IMG_0002.jpg","images/IMG_0003.jpg","images/IMG_0004.jpg","images/IMG_0005.jpg","images/IMG_0006.jpg","images/IMG_0007.jpg","images/IMG_0008.jpg","images/IMG_0009.jpg","images/IMG_0010.jpg","images/IMG_0011.jpg","images/IMG_0012.jpg"];
