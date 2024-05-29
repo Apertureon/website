@@ -30,7 +30,7 @@ header {
 }
 
 .photo img {
-    max-width: 250px; /* Full width of the .photo div */
+    max-width: 300px; /* Full width of the .photo div */
     height: auto; /* Maintain aspect ratio */
     display: block; /* Removes bottom margin/gap inherent to inline elements */
 }
