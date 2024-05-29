@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
 <script src="imageList.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -76,12 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Update layout once all images are loaded
+            // Once all images are loaded, adjust the row heights
             if (loadedImagesCount === totalImages) {
-                console.log("All images loaded, applying layout.");
-                gallery.style.display = 'grid';
-                gallery.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
-                gallery.style.gridGap = '10px';
+                console.log("All images loaded, adjusting row heights.");
+                adjustRowHeights();
             }
         };
 
@@ -91,6 +90,31 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Cached image onload fired manually for ${src}.`);
         }
     });
+
+    function adjustRowHeights() {
+        let rows = [];
+        let currentTopOffset = 0;
+        const galleryWidth = gallery.clientWidth;
+        const photos = Array.from(gallery.children);
+
+        // Sort photos into rows based on their top offset
+        photos.forEach(photo => {
+            let rect = photo.getBoundingClientRect();
+            if (rect.top !== currentTopOffset) {
+                currentTopOffset = rect.top;
+                rows.push([]);
+            }
+            rows[rows.length - 1].push(photo);
+        });
+
+        // Adjust each row's height based on the aspect ratio and the total width
+        rows.forEach(row => {
+            let minHeight = Math.min(...row.map(photo => photo.querySelector('img').naturalHeight));
+            row.forEach(photo => {
+                photo.style.height = `${minHeight}px`;
+            });
+        });
+    }
 });
 </script>
 </body>
