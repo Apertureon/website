@@ -30,8 +30,7 @@ header {
 }
 
 .photo img {
-    width: 100%; /* Full width of the .photo div */
-    max-width: 300px;
+    max-width: 250px; /* Full width of the .photo div */
     height: auto; /* Maintain aspect ratio */
     display: block; /* Removes bottom margin/gap inherent to inline elements */
 }
@@ -55,4 +54,3 @@ footer {
         font-size: 0.8em; /* Smaller text on smaller screens */
     }
 }
-

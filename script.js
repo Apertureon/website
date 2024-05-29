@@ -16,13 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
             photoDiv.appendChild(img);
 
             EXIF.getData(img, function() {
-                const aperture = EXIF.getTag(this, 'ApertureValue');
-                const shutterSpeed = EXIF.getTag(this, 'ShutterSpeedValue');
-                const iso = EXIF.getTag(this, 'ISOSpeedRatings');
-                const detailsDiv = document.createElement('div');
-                detailsDiv.className = 'details';
-                detailsDiv.textContent = `Aperture: f/${aperture || 'N/A'} | Shutter Speed: ${shutterSpeed || 'N/A'} sec | ISO: ${iso || 'N/A'}`;
-                photoDiv.appendChild(detailsDiv);
+                var aperture = EXIF.getTag(this, 'FNumber');
+                var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
+                var iso = EXIF.getTag(this, 'ISOSpeedRatings');
+
+                var details = img.nextElementSibling; // The details div
+                if (aperture || shutterSpeed || iso) {
+                    details.innerHTML = `Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
+                                        `Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
+                                        `ISO: ${iso || 'N/A'}`;
+                } else {
+                    details.innerHTML = "No EXIF Data found.";
+                }
             });
 
             msnry.appended(photoDiv);
