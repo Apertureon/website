@@ -33,9 +33,10 @@ header {
 }
 
 .photo img {
-    max-width: 350px;  // or another suitable width based on your design needs
-    width: 100%;
-    height: auto;
+    width: 100%; 
+    max-width: 25%;  
+    height: auto;  
+    display: block;
 }
 
 .details {
