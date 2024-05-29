@@ -7,7 +7,7 @@ body {
 }
 
 header, .content, footer {
-    width: 100%;
+    width: 100%; /* Use 100% of the viewport width */
     margin: auto;
     padding: 20px;
     background: white;
@@ -23,35 +23,40 @@ header {
 .gallery {
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch; /* Ensures that each item stretches to fill the row height */
+    gap: 10px;
 }
 
 .photo {
+    flex: 1;
     margin: 5px;
-    position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
 }
 
 .photo img {
-    width: auto;
-    height: 100%;
-    display: block;
+    width: 100%; /* Adjusts to fit the container */
+    height: auto; /* Maintains aspect ratio */
 }
 
 .details {
-    font-size: 0.8em;
+    font-size: 1em;
     opacity: 0.8;
     margin-top: 5px;
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    background: rgba(255,255,255,0.8);
 }
 
 footer {
     text-align: center;
     font-size: 0.8em;
     color: #666;
+}
+
+@media only screen 
+  and (orientation: portrait) 
+  and (min-resolution: 2dppx) {
+    .details {
+        font-size: 0.8em; /* Smaller text on smaller screens */
+    }
 }
