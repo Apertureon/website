@@ -31,6 +31,7 @@ header {
 
 .photo img {
     width: 100%; /* Full width of the .photo div */
+    max-width: 300px;
     height: auto; /* Maintain aspect ratio */
     display: block; /* Removes bottom margin/gap inherent to inline elements */
 }
