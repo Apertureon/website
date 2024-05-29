@@ -33,8 +33,10 @@ header {
 }
 
 .photo img {
-    max-width: 100%;  /* Ensures images don’t exceed the width of their containers */
-    height: auto;
+    max-width: 100%; /* ensures images are responsive and fit their containers */
+    max-height: 500px; /* maximum height for all images */
+    width: auto; /* maintain aspect ratio */
+    height: auto; /* maintain aspect ratio */
     display: block;
 }
 
