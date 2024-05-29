@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const grid = document.querySelector('.gallery');
     const msnry = new Masonry(grid, {
         itemSelector: '.photo',
-        columnWidth: 300,
+        columnWidth: '.grid-sizer',
+        percentPosition: true, // Enable percentage-based positions
         gutter: 10
     });
 

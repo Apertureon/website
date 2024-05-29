@@ -21,17 +21,23 @@ header {
 }
 
 .gallery {
-    /* No specific width or grid rules; Masonry will manage layout */
+    display: block;
+}
+
+.grid-sizer,
+.photo {
+    width: 20%; /* This sets the width of each column to 20% of the parent element, adjust as needed */
 }
 
 .photo {
-    margin: 5px; /* Space around photos, adjust as needed */
+    margin: 10px; /* Space around photos, adjust as needed */
     display: inline-block; /* Ensures Masonry handles the layout */
 }
 
 .photo img {
-    max-width: 300px; /* Full width of the .photo div */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    max-width: 250px;
+    height: auto; 
     display: block; /* Removes bottom margin/gap inherent to inline elements */
 }
 
