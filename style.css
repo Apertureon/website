@@ -33,9 +33,9 @@ header {
 }
 
 .photo img {
-    width: 25%; /* This will make the image responsive within its container */
-    height: auto; /* Maintain aspect ratio */
-    display: block;
+    max-width: 350px;  // or another suitable width based on your design needs
+    width: 100%;
+    height: auto;
 }
 
 .details {
