@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const msnry = new Masonry(grid, {
         itemSelector: '.photo',
         columnWidth: '.grid-sizer',
-        percentPosition: true, // Enable percentage-based positions
-        
+        gutter: '.gutter-sizer',
+        percentPosition: true, // Enable percentage-based positions       
     });
 
     imageList.forEach(src => {
