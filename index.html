@@ -15,7 +15,7 @@
     <p>Exploring the beauty in everyday life</p>
 </header>
 <div class="content">
-    <section class="gallery">
+    <section id="gallery" class="gallery">
         <!-- Photos will be dynamically added here -->
     </section>
     <section>
@@ -33,11 +33,6 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.querySelector('.gallery');
-    console.log("Gallery element selected:", gallery);
-
-    let loadedImagesCount = 0;
-    const totalImages = imageList.length;
-    console.log("Total images to load:", totalImages);
 
     imageList.forEach((src, index) => {
         const photoDiv = document.createElement('div');
@@ -57,64 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
         gallery.appendChild(photoDiv);
 
         img.onload = function() {
-            loadedImagesCount++;
-            console.log(`Image loaded: ${src}, Total loaded: ${loadedImagesCount}`);
-
-            // Load EXIF data
             EXIF.getData(img, function() {
                 var aperture = EXIF.getTag(this, 'FNumber');
                 var shutterSpeed = EXIF.getTag(this, 'ExposureTime');
                 var iso = EXIF.getTag(this, 'ISOSpeedRatings');
 
-                if (aperture || shutterSpeed || iso) {
-                    detailsDiv.innerHTML = `Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
-                                           `Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
-                                           `ISO: ${iso || 'N/A'}`;
-                    console.log(`EXIF data set for ${src}: Aperture=${aperture}, Shutter Speed=${shutterSpeed}, ISO=${iso}`);
-                } else {
-                    detailsDiv.innerHTML = "No EXIF Data found.";
-                    console.log(`No EXIF data found for ${src}.`);
-                }
+                detailsDiv.innerHTML = `Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
+                                       `Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
+                                       `ISO: ${iso || 'N/A'}`;
             });
-
-            // Once all images are loaded, adjust the row heights
-            if (loadedImagesCount === totalImages) {
-                console.log("All images loaded, adjusting row heights.");
-                adjustRowHeights();
-            }
         };
-
-        // Ensure onload fires for cached images
-        if (img.complete) {
-            img.onload();
-            console.log(`Cached image onload fired manually for ${src}.`);
-        }
+        if (img.complete) img.onload();
     });
-
-    function adjustRowHeights() {
-        let rows = [];
-        let currentTopOffset = 0;
-        const galleryWidth = gallery.clientWidth;
-        const photos = Array.from(gallery.children);
-
-        // Sort photos into rows based on their top offset
-        photos.forEach(photo => {
-            let rect = photo.getBoundingClientRect();
-            if (rect.top !== currentTopOffset) {
-                currentTopOffset = rect.top;
-                rows.push([]);
-            }
-            rows[rows.length - 1].push(photo);
-        });
-
-        // Adjust each row's height based on the aspect ratio and the total width
-        rows.forEach(row => {
-            let minHeight = Math.min(...row.map(photo => photo.querySelector('img').naturalHeight));
-            row.forEach(photo => {
-                photo.style.height = `${minHeight}px`;
-            });
-        });
-    }
 });
 </script>
 </body>
