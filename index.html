@@ -6,8 +6,6 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
 <script src="imageList.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script> <!-- ImagesLoaded Library -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -78,17 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
+            // Update layout once all images are loaded
             if (loadedImagesCount === totalImages) {
-                console.log("All images loaded, initializing Masonry.");
-                var msnry = new Masonry(gallery, {
-                    itemSelector: '.photo',
-                    //columnWidth: '.photo', // This makes the column width match the actual image width
-                    percentPosition: true, // This will make the column width flexible relative to the container width
-                    gutter: 10
-                });
-                console.log("Masonry initialized.");
-                msnry.reloadItems(); // Make sure Masonry accounts for any new items
-                msnry.layout(); // Lay out the newly added items
+                console.log("All images loaded, applying layout.");
+                gallery.style.display = 'grid';
+                gallery.style.gridTemplateColumns = 'repeat(auto-fit, minmax(300px, 1fr))';
+                gallery.style.gridGap = '10px';
             }
         };
 

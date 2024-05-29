@@ -21,22 +21,19 @@ header {
 }
 
 .gallery {
-    /* Remove flex properties if you decide they conflict with Masonry's styling */
-    margin: auto;
-    width: 100%; /* Ensure the gallery width is controlled */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Creates columns that best fit the available space */
+    grid-gap: 10px; /* Space between items */
 }
 
 .photo {
-    width: auto; /* Allow Masonry to control the width */
-    margin: 5px; /* Keep margin for spacing */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 5px; /* Optional if grid-gap is used */
+    break-inside: avoid; /* Prevents breaking within a grid item, useful for columns */
 }
 
 .photo img {
-    width: 100%; 
-    max-width: 25%;  
-    height: auto;  
-    display: block;
+    width: 100%; /* Ensures the image scales to the width of the column */
+    height: auto; /* Maintains aspect ratio */
 }
 
 .details {
