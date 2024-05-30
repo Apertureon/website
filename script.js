@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 var iso = EXIF.getTag(this, 'ISOSpeedRatings');
 
                 if (aperture || shutterSpeed || iso) {
-                    detailsDiv.innerHTML = `Aperture: f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
-                                           `Shutter Speed: ${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
-                                           `ISO: ${iso || 'N/A'}`;
+                    detailsDiv.innerHTML = `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
+                                           `${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
+                                           `ISO ${iso || 'N/A'}`;
                 } else {
                     detailsDiv.innerHTML = "No EXIF Data found.";
                 }

@@ -9,7 +9,7 @@ body {
 header, .content, footer {
     width: calc(100% - 40px);
     margin: auto;
-    padding: 0;
+    padding: 20px;
     background: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -64,12 +64,16 @@ footer {
   and (min-resolution: 2dppx) {
     .grid-sizer,
     .photo {
-        width: 49%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
+        width: 100%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
         float: left; /* Optional: Helps manage layout without flexbox or CSS grid */
     }
 
-    .gutter-sizer { 
-        width: 2%; 
+    header h1 {
+        font-size: 0.6em; /* Larger size for headings */
+    }
+    
+    header p {
+        font-size: 0.8em; /* Smaller size for subtext */
     }
 
     .details {
