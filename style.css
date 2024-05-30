@@ -59,8 +59,7 @@ footer {
     color: #666;
 }
 
-@media (orientation: portrait) 
-   and (min-resolution: 2dppx) {
+@media (orientation: portrait) {
     .grid-sizer,
     .photo {
         width: 100%; 
@@ -80,7 +79,7 @@ footer {
     }
 }
 
-@media (max-width: 600px)
+@media (max-width: 900px)
    and (orientation: landscape) {
     .grid-sizer,
     .photo {
