@@ -60,7 +60,7 @@ footer {
 }
 
 @media (orientation: portrait) 
-   and (min-width: 600px) {
+   and (min-resolution: 2dppx) {
     .grid-sizer,
     .photo {
         width: 100%; 
