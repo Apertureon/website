@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (aperture || shutterSpeed || iso) {
                     detailsDiv.innerHTML = `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
-                                           `${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' sec' : 'N/A'} | ` +
+                                           `${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' s' : 'N/A'} | ` +
                                            `ISO ${iso || 'N/A'}`;
                 } else {
                     detailsDiv.innerHTML = "No EXIF Data found.";
