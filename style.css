@@ -90,3 +90,15 @@ footer {
         width: 2%; 
     }
 }
+
+@media (min-width: 901px) and (max-width: 1300px)
+   and (orientation: landscape) {
+    .grid-sizer,
+    .photo {
+        width: 32%; 
+    }
+
+    .gutter-sizer { 
+        width: 2%; 
+    }
+}
