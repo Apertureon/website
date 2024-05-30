@@ -27,7 +27,7 @@ header {
 
 .grid-sizer,
 .photo {
-    width: 24%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
+    width: 24%; 
     float: left; /* Optional: Helps manage layout without flexbox or CSS grid */
 }
 
@@ -59,17 +59,16 @@ footer {
     color: #666;
 }
 
-@media only screen 
-  and (orientation: portrait) 
-  and (min-resolution: 2dppx) {
+@media (orientation: portrait) 
+   and (min-width: 600px) {
     .grid-sizer,
     .photo {
-        width: 100%; /* This sets each column to 20% of the gallery width, creating a 5-column layout */
+        width: 100%; 
         float: left; /* Optional: Helps manage layout without flexbox or CSS grid */
     }
 
     header h1 {
-        font-size: 1.5em; /* Larger size for headings */
+        font-size: 1.6em; /* Larger size for headings */
     }
     
     header p {
@@ -79,5 +78,16 @@ footer {
     .details {
         font-size: 0.8em; /* Smaller text on smaller screens */
     }
+}
 
+@media (max-width: 600px)
+   and (orientation: landscape) {
+    .grid-sizer,
+    .photo {
+        width: 49%; 
+    }
+
+    .gutter-sizer { 
+        width: 2%; 
+    }
 }
