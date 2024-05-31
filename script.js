@@ -4,21 +4,26 @@ document.addEventListener('DOMContentLoaded', function() {
         itemSelector: '.photo',
         columnWidth: '.grid-sizer',
         gutter: '.gutter-sizer',
-        percentPosition: true, // Enable percentage-based positions       
+        percentPosition: true,        
     });
 
-    imageList.forEach(src => {
+    imageList.forEach(image => {
         const img = new Image();
-        img.src = src;
+        img.src = image.thumbnail; // Use the thumbnail for the img src
         img.onload = function() {
             const photoDiv = document.createElement('div');
             photoDiv.className = 'photo';
 
-            const detailsDiv = document.createElement('div'); // Create the details div here
-            detailsDiv.className = 'details'; // Assign class name
+            const link = document.createElement('a');
+            link.href = image.original; // Link to the original image
+            link.target = '_blank'; // Ensures the link opens in a new tab
+            link.appendChild(img); // Append the img to the link
 
-            photoDiv.appendChild(img);
-            photoDiv.appendChild(detailsDiv); // Append details div to photoDiv
+            const detailsDiv = document.createElement('div'); 
+            detailsDiv.className = 'details'; 
+
+            photoDiv.appendChild(link); // Append link (which contains the img) to the photoDiv
+            photoDiv.appendChild(detailsDiv); 
             grid.appendChild(photoDiv);
 
             EXIF.getData(img, function() {
