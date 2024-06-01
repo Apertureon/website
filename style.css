@@ -36,9 +36,9 @@ header {
 }
 
 .photo {
-    margin-bottom: 10px; /* Space between rows */
-    box-sizing: border-box; /* Includes padding and border in the element's width */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 10px; /* Space between rows */
+    /*box-sizing: border-box; /* Includes padding and border in the element's width */
 }
 
 .photo img {
