@@ -21,14 +21,13 @@ header {
 }
 
 .gallery {
-    display: block;
     width: 100%; 
+    display: block;   
 }
 
 .grid-sizer,
 .photo {
-    width: 24%; 
-    float: left; /* Optional: Helps manage layout without flexbox or CSS grid */
+    width: 24%;
 }
 
 .gutter-sizer { 
@@ -36,9 +35,8 @@ header {
 }
 
 .photo {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 10px; /* Space between rows */
-    /*box-sizing: border-box;*/
+    margin-bottom: 10px; /* Space between rows */   
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
 
 .photo img {
