@@ -13,10 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Initial layout completed after all images loaded.');
     });
 
-    let imagesLoadedCount = 0; // 记录加载完成的图片数量
-    let totalImages = imageList.length; // 总图片数量
-    let exifLoadedCount = 0; // 记录加载完成的EXIF数据数量
-    console.log('Total images:', totalImages); // 输出总图片数量
+    let totalImages = imageList.length; 
+    let exifLoadedCount = 0; 
+    console.log('Total images:', totalImages); 
 
     imageList.forEach(image => {
         const img = new Image();
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     detailsDiv.innerHTML = `f/${aperture ? aperture.numerator / aperture.denominator : 'N/A'} | ` +
                                         `${shutterSpeed ? shutterSpeed.numerator + '/' + shutterSpeed.denominator + ' s' : 'N/A'} | ` +
                                         `ISO ${iso || 'N/A'}`;
-                    console.log('EXIF loaded for:', img.src);
                     exifLoadedCount++;
                 } else {
                     detailsDiv.innerHTML = "No EXIF Data found.";
@@ -58,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(`EXIF loaded count: ${exifLoadedCount} of ${totalImages}`);
                 if (exifLoadedCount === totalImages) {
                     console.log('All EXIF data loaded, updating layout...');
-                    msnry.layout(); // 所有EXIF数据加载完毕后重新计算布局
+                    msnry.layout(); 
                 }
             });
             msnry.appended(photoDiv);
