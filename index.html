@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>My Photography Work</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
     <script src="imageList.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.min.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -15,6 +16,20 @@
     <h1>My Photography Work</h1>
     <p>Exploring the beauty in everyday life</p>
 </header>
+<div class="filter-sort-area">
+    <div class="filters">
+        <span class="label">Category:</span>
+        <button class="button" data-filter="*">Show All</button>
+        <button class="button" data-filter=".london">London</button>
+        <button class="button" data-filter=".paris">Paris</button>
+        <button class="button" data-filter=".Flower">Flower</button>
+    </div>
+    <div class="sorting">
+        <span class="label">Sort:</span>
+        <button class="button" data-sort-by="default">default</button>
+        <button class="button" data-sort-by="date">Date</button>
+    </div>
+</div>
 <div class="content">
     <section class="gallery">
         <div class="grid-sizer"></div>
