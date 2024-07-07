@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Photography Work</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="intro-section">
+        <h1>Welcome to My Photography Work</h1>
+        <p>Exploring the beauty in everyday life through my lens.</p>
+        <button onclick="location.href='gallery.html'">Enter Gallery</button>
+    </div>
+    <footer>
+        <p>&copy; 2024 My Photography Work</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            $("#navbar-placeholder").load("navbar.html");
+        });
+    </script>
+</body>
+</html>
+
