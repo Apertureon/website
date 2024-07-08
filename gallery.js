@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('Modal');
     const modalImg = document.getElementById("modalImage");
     const closeModal = document.getElementsByClassName("close")[0];
+    const filterDropdown = document.getElementById('filter-dropdown');
     
     // Initialize Isotope
     const iso = new Isotope(grid, {
         itemSelector: '.photo',
+        filter: '.london',
         masonry: {
             columnWidth: '.grid-sizer',
             gutter: '.gutter-sizer'
@@ -82,6 +84,10 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = "none";
         }
     }
+
+    filterDropdown.addEventListener('change', function() {
+        iso.arrange({ filter: this.value });
+    });
     
     // Set up filters
     document.querySelectorAll('.filters .button').forEach(button => {
@@ -89,6 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const filterValue = this.getAttribute('data-filter');
             iso.arrange({ filter: filterValue });
             console.log('Filtering:', filterValue);
+
+            document.querySelectorAll('.filters .button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
         });
     });
 
@@ -98,6 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const sortValue = this.getAttribute('data-sort-by');
             iso.arrange({ sortBy: sortValue });
             console.log('Sorting by:', sortValue);
+
+            document.querySelectorAll('.filters .button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
         });
     });
 });

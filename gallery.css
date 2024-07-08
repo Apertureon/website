@@ -6,21 +6,47 @@ body {
 }
 
 .filter-sort-area {
-    margin-top: 10vh;
-    padding: 5px 0;
+    margin-top: 9vh;
+    padding: 10px 0;
     background-color: #f8f8f8;
-    text-align: center;
 }
 
-.filters .label, .sorting .label {
+.filters {
+    text-align: center;
+    overflow-x: auto;             /* 超出部分允许水平滚动 */
+    flex-wrap: nowrap;            /* 禁止按钮折行 */
+    white-space: nowrap;
+    padding: 0 30px;
+}
+
+.mobile-filters {
+    display: none; 
+}
+
+.label {
     font-weight: bold;
-    margin-right: 10px;
+    margin-right: 5px;
+}
+
+.filter-dropdown {
+    padding: 8px 24px 8px 15px; /* 增加内边距，改善触摸体验 */
+    border: 1px solid #ccc; /* 添加边框以提高可见性 */
+    font-size: 16px;
+    border-radius: 5px; /* 圆角边框 */
+    background-color: #fff; /* 背景颜色 */
+    cursor: pointer; /* 指针样式 */
+    appearance: none; /* 去除原生样式 */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M7 10l5 5 5-5H7z"/></svg>') no-repeat;
+    background-position: right 4px center; /* 控制箭头的位置 */
+    background-size: 16px 16px; /* 控制箭头的大小 */
 }
 
 .button {
     padding: 8px 16px;
     margin: 5px;
-    background-color: #f0f0f0; 
+    background-color: #e0e0e0; 
     color: #333;
     border: none;
     border-radius: 5px;
@@ -28,13 +54,11 @@ body {
     display: inline-block;
 }
 
-.button:hover {
-    background-color: #e0e0e0;
-}
-
-.button:focus, .button:active {
+.button.active, .button:focus, .button:active {
+    background-color: #666;     
+    color: #fff;
     outline: none; /* Removes the default outline */
-    box-shadow: 0 0 0 2px #555; /* Adds a subtle outline */
+    box-shadow: 0 0 0 2px #666; /* Adds a subtle outline */
 }
 
 .content, footer {
@@ -130,6 +154,12 @@ footer {
 @media (max-width: 600px) {
     .grid-sizer, .photo {
         width: 100%;
+    }
+    .desktop-filters {
+        display: none; 
+    }
+    .mobile-filters {
+        display: block
     }
 }
 
