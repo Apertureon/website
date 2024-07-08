@@ -85,6 +85,48 @@ footer {
     color: #666;
 }
 
+#Modal {
+    display: none; /* 默认不显示 */
+    position: fixed; /* 固定位置，覆盖整个视口 */
+    z-index: 1000; /* 高层级确保显示在顶部 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 宽度为视口宽度 */
+    height: 100%; /* 高度为视口高度 */
+    overflow: hidden; /* 防止内容滚动 */
+    background-color: rgba(0, 0, 0, 0.9); /* 半透明黑色背景 */
+}
+
+#modalImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 90%; /* 最大高度小于100%以避免接触边缘 */
+    max-width: 95%; /* 最大宽度也是，以保持一定边距 */
+    width: auto;  /* 宽度自适应，保证图片比例 */
+    height: auto; /* 高度自适应，保证图片内容 */
+}
+
+/* 关闭按钮样式 */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* 鼠标悬浮在关闭按钮上时 */
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .grid-sizer, .photo {
         width: 100%;

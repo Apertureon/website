@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const grid = document.querySelector('.gallery');
+    const modal = document.getElementById('Modal');
+    const modalImg = document.getElementById("modalImage");
+    const closeModal = document.getElementsByClassName("close")[0];
     
     // Initialize Isotope
     const iso = new Isotope(grid, {
@@ -32,16 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
         photoDiv.className = 'photo ' + image.category; // Assign category for filtering
         photoDiv.setAttribute('data-date', image.date); // Assign date for sorting
 
-        const link = document.createElement('a');
-        link.href = image.original; // Link to the original image
-        link.target = '_blank'; // Ensures the link opens in a new tab
-        link.appendChild(img); // Append the img to the link
-        photoDiv.appendChild(link); // Append link (which contains the img) to the photoDiv
+        photoDiv.onclick = function() {  // 添加点击事件
+            modal.style.display = "block";
+            modalImg.src = image.original;
+        };
+        photoDiv.appendChild(img);
+        grid.appendChild(photoDiv);
 
         const detailsDiv = document.createElement('div'); 
         detailsDiv.className = 'details'; 
-        photoDiv.appendChild(detailsDiv); 
-        grid.appendChild(photoDiv);
+        photoDiv.appendChild(detailsDiv);
 
         img.onload = function() {
             EXIF.getData(img, function() {
@@ -68,6 +71,17 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(`Image appended and layout called for: ${img.src}`);
         };
     });
+
+    closeModal.onclick = function() {  // 关闭模态窗口
+        modal.style.display = "none";
+    };
+
+    // Close the modal when clicking outside of the image
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
     
     // Set up filters
     document.querySelectorAll('.filters .button').forEach(button => {
