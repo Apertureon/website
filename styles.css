@@ -96,7 +96,7 @@ body, html {
 .modal {
     display: none; 
     opacity: 0; /* 初始透明度为0 */
-    transition: opacity 0.5s ease;
+    transition: opacity 0.7s ease;
     position: fixed; 
     z-index: 1000; 
     left: 0;
@@ -179,6 +179,7 @@ body, html {
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
 .info-toggle {
@@ -254,7 +255,10 @@ body, html {
         color: #666; 
     }
     .photo-wrapper:hover {
-        transform: scale(1.05);
+        transform: scale(1.03);
+    }
+    .close:hover {
+        transform: scale(1.1);
     }
 }
 
