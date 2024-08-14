@@ -111,12 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     photoInfo.style.display = 'flex'; // 显示信息面板
                     photoInfo.style.flexDirection = 'column'; // 确保列布局
                     photoInfo.style.height = '32%';
-                    this.textContent = 'Close'; // 更改按钮文本
-                    photoInfo.style.transform = 'translateY(0)'; // 向上移动信息面板
+                    photoInfo.style.opacity = 1;                                        
                     this.style.transform = 'translateX(-50%) translateY(-32vh)'; // 向上移动按钮
+                    this.textContent = 'Close'; // 更改按钮文本
                     isPanelOpen = true;
-                } else {
-                    photoInfo.style.transform = 'translateY(100%)'; // 将信息面板移回原位
+                } else {                   
                     this.style.transform = 'translateX(-50%) translateY(0)'; // 将按钮移回原位
                     this.textContent = 'Show Info'; // 恢复按钮文本                    
                     photoInfo.style.display = 'none'; // 确保动画完成后隐藏面板                    
