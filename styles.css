@@ -206,7 +206,7 @@ body, html {
     .photo-info {
         display: none; /* 默认不显示，直到触发 */
         flex-direction: column; /* 使内容垂直排列 */ 
-        background-color: rgba(0, 0, 0, 0.65);
+        background-color: rgba(0, 0, 0, 0.7);
         opacity: 0; 
         transition: opacity 0.5s ease-in-out;
     }

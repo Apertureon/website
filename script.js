@@ -111,7 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     photoInfo.style.display = 'flex'; // 显示信息面板
                     photoInfo.style.flexDirection = 'column'; // 确保列布局
                     photoInfo.style.height = '32%';
-                    photoInfo.style.opacity = 1;                                        
+                    setTimeout(() => {
+                        photoInfo.style.opacity = 1;
+                    }, 10);                                        
                     this.style.transform = 'translateX(-50%) translateY(-32vh)'; // 向上移动按钮
                     this.textContent = 'Close'; // 更改按钮文本
                     isPanelOpen = true;
