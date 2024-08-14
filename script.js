@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!isPanelOpen) {
                     photoInfo.style.display = 'flex'; // 显示信息面板
                     photoInfo.style.flexDirection = 'column'; // 确保列布局
+                    photoInfo.style.height = 'auto';
                     this.textContent = 'Close'; // 更改按钮文本
                     isPanelOpen = true;
                 } else {
