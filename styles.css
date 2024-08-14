@@ -71,6 +71,8 @@ body, html {
     overflow: hidden;
     margin-bottom: 20px;
     border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.15);
+    transition: transform 0.3s ease;
 }
 
 .grid-sizer, .photo-wrapper {
@@ -250,6 +252,9 @@ body, html {
 @media (pointer: fine) {
     .nav-button:hover {
         color: #666; 
+    }
+    .photo-wrapper:hover {
+        transform: scale(1.05);
     }
 }
 
