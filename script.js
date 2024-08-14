@@ -110,18 +110,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!isPanelOpen) {
                     photoInfo.style.display = 'flex'; // 显示信息面板
                     photoInfo.style.flexDirection = 'column'; // 确保列布局
-                    photoInfo.style.height = '35%';
+                    photoInfo.style.height = '32%';
                     this.textContent = 'Close'; // 更改按钮文本
                     photoInfo.style.transform = 'translateY(0)'; // 向上移动信息面板
-                    this.style.transform = 'translateX(-50%) translateY(calc(-100% - 36vh))'; // 向上移动按钮
+                    this.style.transform = 'translateX(-50%) translateY(-32vh)'; // 向上移动按钮
                     isPanelOpen = true;
                 } else {
                     photoInfo.style.transform = 'translateY(100%)'; // 将信息面板移回原位
                     this.style.transform = 'translateX(-50%) translateY(0)'; // 将按钮移回原位
-                    this.textContent = 'Show Info'; // 恢复按钮文本
-                    setTimeout(() => {
-                        photoInfo.style.display = 'none'; // 确保动画完成后隐藏面板
-                    }, 500); // 等待动画完成
+                    this.textContent = 'Show Info'; // 恢复按钮文本                    
+                    photoInfo.style.display = 'none'; // 确保动画完成后隐藏面板                    
                     isPanelOpen = false;
                 }
             });

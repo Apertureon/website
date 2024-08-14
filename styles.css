@@ -203,6 +203,11 @@ body, html {
     .photo-info {
         display: none; /* 默认不显示，直到触发 */
         flex-direction: column; /* 使内容垂直排列 */ 
+        background-color: rgba(0, 0, 0, 0.9);
+        transform: translateY(100%);
+    }
+    .photo-info > div {
+        padding: 4px 20px; 
     }
     .info-toggle {
         display: block;
