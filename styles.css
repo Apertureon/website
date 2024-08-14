@@ -203,7 +203,6 @@ body, html {
     .photo-info {
         display: none; /* 默认不显示，直到触发 */
         flex-direction: column; /* 使内容垂直排列 */ 
-        padding-bottom: 20px;
     }
     .info-toggle {
         display: block;
