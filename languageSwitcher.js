@@ -18,7 +18,7 @@ function loadLanguage(lang) {
         document.querySelectorAll('.nav-button')[1].textContent = data.explore;
         document.querySelectorAll('.nav-button')[2].textContent = data.lifestyle;
         document.querySelectorAll('.nav-button')[3].textContent = data.creative;
-        document.getElementByClassName('info-toggle').textContent = data.showInfo;
+        document.getElementByClassName("info-toggle").textContent = data.showInfo;
         // 更新模态窗口相关的文本
         document.querySelector('#parameter .label').textContent = data.parameter;
         document.querySelector('#location .label').textContent = data.location;
