@@ -10,5 +10,6 @@
     "parameter": "Parameter",
     "location": "Location",
     "camera": "Camera",
-    "lens": "Lens"
+    "lens": "Lens",
+    "close": "Close"
 }
