@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.style.opacity = 0;
                 setTimeout(() => {
                     modal.style.display = 'none'; 
-                    infoToggle.click(); // 模拟点击infoToggle按钮
+                    // infoToggle.click(); // 模拟点击infoToggle按钮
                 }, 500);
             };
 
