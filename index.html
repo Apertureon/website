@@ -9,14 +9,19 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="languageSwitcher.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
     <header class="site-header">
         <img src="logo.png" alt="Website Logo">
         <div class="header-links">
-            <a href="#">Follow</a>
-            <a href="#">About</a>
+            <select id="language-select">
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+            </select>
+            <a href="#" id="follow-link">Follow</a>
+            <a href="#" id="about-link">About</a>
         </div>
     </header>
     <nav class="main-navigation">

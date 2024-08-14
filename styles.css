@@ -16,12 +16,18 @@ body, html {
     color: #fff;
 }
 
-.header-links a {
+.header-links a, .header-links select {
     color: #fff;
     text-decoration: none;
     padding: 0 20px;
     font-size: 1.3em;
     font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.header-links select {
+    outline: none; /* 去除焦点轮廓 */
 }
 
 .main-navigation {
@@ -211,7 +217,7 @@ body, html {
     .photo-info {
         display: none; /* 默认不显示，直到触发 */
         flex-direction: column; /* 使内容垂直排列 */ 
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.8);
         opacity: 0; 
         transition: opacity 0.5s ease-in-out;
     }
@@ -258,13 +264,13 @@ body, html {
         transform: scale(1.03);
     }
     .close:hover {
-        transform: scale(1.1);
+        transform: scale(1.25);
     }
 }
 
 /* 触摸设备不应用 hover 效果 */
 @media (pointer: coarse) {
     .nav-button:hover {
-        color: #fff;
+        color: #000;
     }
 }
