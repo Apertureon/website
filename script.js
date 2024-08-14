@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // 显示图片和参数
                     modal.style.display = "block";
+                    setTimeout(() => modal.style.opacity = 1, 10);
                     modalImg.src = photo.filePath;
                     
                     imgParameter.innerHTML =
@@ -101,7 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             close.onclick = function() {
-                modal.style.display = "none";
+                modal.style.opacity = 0;
+                setTimeout(() => {
+                    modal.style.display = 'none'; 
+                    infoToggle.click(); // 模拟点击infoToggle按钮
+                }, 500);
             };
 
             // 控制信息面板和按钮的行为
