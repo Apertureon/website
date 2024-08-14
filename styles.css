@@ -43,6 +43,13 @@ body, html {
     cursor: pointer;
     background: transparent;
     font-weight: bold;
+    border-radius: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-button.active, .nav-button:hover {
+    background-color: #fff; 
+    color: #000; 
 }
 
 .content {
@@ -59,7 +66,7 @@ body, html {
     position: relative;
     overflow: hidden;
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .grid-sizer, .photo-wrapper {
@@ -102,6 +109,7 @@ body, html {
     max-height: 88%; 
     width: auto; 
     height: auto;
+    border-radius: 6px;
 }
 
 .photo-info {
@@ -116,7 +124,7 @@ body, html {
     align-items: center; /* 垂直居中对齐子元素 */
     justify-content: center; /* 水平居中对齐子元素 */
     text-align: center; /* 文本居中 */
-    padding: 0 20px; /* 添加一些内边距 */
+    /* padding: 0 20px; /* 添加一些内边距 */
 }
 
 .photo-info > div {

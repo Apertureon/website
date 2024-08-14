@@ -59,9 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // 绑定筛选按钮事件
             document.querySelectorAll('.nav-button').forEach(button => {
                 button.addEventListener('click', function() {
+                    // 清除所有按钮的激活状态
+                    document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
                     iso.arrange({ filter: this.getAttribute('data-filter') });
                 });
             });
+
+            // 默认激活 Featured 按钮
+            const defaultActiveButton = document.querySelector('.nav-button[data-filter=".featured"]');
+            defaultActiveButton.classList.add('active');
 
             // 布局初始化完成后设置图片并开始加载
             data.forEach((photo, index) => {
