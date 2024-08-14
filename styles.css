@@ -127,6 +127,7 @@ body, html {
     align-items: center; /* 垂直居中对齐子元素 */
     justify-content: center; /* 水平居中对齐子元素 */
     text-align: center; /* 文本居中 */
+    transition: transform 0.5s ease-in-out;
     /* padding: 0 20px; /* 添加一些内边距 */
     /* background-color: rgba(3, 3, 3, 0.8); /* 背景颜色，含透明度 */
 }
@@ -202,14 +203,17 @@ body, html {
     .photo-info {
         display: none; /* 默认不显示，直到触发 */
         flex-direction: column; /* 使内容垂直排列 */ 
+        padding-bottom: 20px;
     }
     .info-toggle {
         display: block;
         position: fixed;
         bottom: 10px; 
         left: 50%;
+        border: none;
+        transition: transform 0.5s ease-in-out;
         transform: translateX(-50%);
-        background: transparent;
+        background-color: #333;
         color: #ccc;
         padding: 10px 20px;
         border-radius: 30px;
