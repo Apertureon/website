@@ -1,5 +1,10 @@
-document.getElementById('language-select').addEventListener('change', function() {
-    loadLanguage(this.value); 
+document.addEventListener('DOMContentLoaded', function() {
+    const languageSelect = document.getElementById('language-select');
+    if (languageSelect) {
+        languageSelect.addEventListener('change', function() {
+            loadLanguage(this.value);
+        });
+    }
 });
 
 function loadLanguage(lang) {
