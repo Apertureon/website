@@ -199,10 +199,20 @@ body, html {
         padding: 8px 12px;
         font-size: 0.8em;
     }
+    .modal-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 98%; 
+        max-height: 90%; 
+        width: auto; 
+        height: auto;
+        border-radius: 6px;
+    }
     .photo-info {
         display: none; /* 默认不显示，直到触发 */
         flex-direction: column; /* 使内容垂直排列 */ 
-        background-color: rgba(0, 0, 0, 0.6);
+        background-color: rgba(0, 0, 0, 0.65);
         opacity: 0; 
         transition: opacity 0.5s ease-in-out;
     }
@@ -212,14 +222,16 @@ body, html {
     .info-toggle {
         display: block;
         position: fixed;
-        bottom: 10px; 
+        bottom: 1%; 
         left: 50%;
         border: none;
         transition: transform 0.5s ease-in-out;
         transform: translateX(-50%);
         background-color: #333;
         color: #ccc;
-        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 8px 20px;
         border-radius: 30px;
         cursor: pointer;
         z-index: 1050;

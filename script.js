@@ -117,8 +117,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     isPanelOpen = true;
                 } else {                   
                     this.style.transform = 'translateX(-50%) translateY(0)'; // 将按钮移回原位
-                    this.textContent = 'Show Info'; // 恢复按钮文本                    
-                    photoInfo.style.display = 'none'; // 确保动画完成后隐藏面板                    
+                    this.textContent = 'Show Info'; // 恢复按钮文本
+                    photoInfo.style.opacity = 0;                    
+                    setTimeout(() => {
+                        photoInfo.style.display = 'none'; // 完全隐藏信息面板
+                    }, 500); // 等待渐隐完成                    
                     isPanelOpen = false;
                 }
             });
