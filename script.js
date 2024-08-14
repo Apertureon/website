@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const gallery = document.querySelector('.gallery');
     const modal = document.getElementById('Modal');
     const close = document.getElementsByClassName("close")[0];
+    const infoToggle = document.querySelector('.info-toggle');
+    const photoInfo = document.querySelector('.photo-info');
 
     function toTitleCase(str) {
         // 先处理 'Z' 后跟数字的情况，将它们合并
@@ -101,5 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
             close.onclick = function() {
                 modal.style.display = "none";
             };
+
+            infoToggle.addEventListener('click', function() {
+                if (photoInfo.style.height === '0px' || photoInfo.style.height === '') {
+                    photoInfo.style.height = 'auto'; // 展开
+                } else {
+                    photoInfo.style.height = '0'; // 折叠
+                }
+            });
         });
 });
