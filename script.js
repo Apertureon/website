@@ -104,11 +104,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.style.display = "none";
             };
 
+            // 控制信息面板和按钮的行为
+            let isPanelOpen = false;             
             infoToggle.addEventListener('click', function() {
-                if (photoInfo.style.height === '0px' || photoInfo.style.height === '') {
-                    photoInfo.style.height = 'auto'; // 展开
+                if (!isPanelOpen) {
+                    photoInfo.style.display = 'flex'; // 显示信息面板
+                    photoInfo.style.flexDirection = 'column'; // 确保列布局
+                    this.textContent = 'Close'; // 更改按钮文本
+                    isPanelOpen = true;
                 } else {
-                    photoInfo.style.height = '0'; // 折叠
+                    photoInfo.style.display = 'none'; // 隐藏信息面板
+                    this.textContent = 'Show Info'; // 恢复按钮文本
+                    isPanelOpen = false;
                 }
             });
         });
