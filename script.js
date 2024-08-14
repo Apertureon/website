@@ -88,8 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     // 显示图片和参数
                     modal.style.display = "block";
-                    setTimeout(() => modal.style.opacity = 1, 10);
                     modalImg.src = photo.filePath;
+                    setTimeout(() => modal.style.opacity = 1, 10);
+                    
                     
                     imgParameter.innerHTML =
                         '<img src="icons/aperture-outline.svg" alt="Camera" class="icon">' + (photo.aperture || 'unknown') +
