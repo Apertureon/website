@@ -1,0 +1,198 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #000;
+}
+
+.site-header {
+    display: flex;
+    height: 10vh;
+    align-items: center; 
+    justify-content: space-between;
+    padding: 0 50px;
+    background-color: #333;
+    color: #fff;
+}
+
+.header-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.main-navigation {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.nav-button {
+    padding: 10px 16px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    font-weight: bold;
+}
+
+.content {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.gallery {
+    width: 100%;
+    margin: auto;
+}
+
+.photo-wrapper {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.grid-sizer, .photo-wrapper {
+    width: 32%; 
+}
+
+.gutter-sizer {
+    width: 2%;
+}
+
+.photo-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: hidden; /* 防止内容滚动 */
+    background-color: rgba(0, 0, 0, 0.9); 
+  }
+
+.modal-content {
+    display: block;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 98%; 
+    max-height: 88%; 
+    width: auto; 
+    height: auto;
+}
+
+.photo-info {
+    position: fixed; 
+    bottom: 1%; 
+    left: 0; 
+    width: 100%; 
+    height: 9%; 
+    /* background-color: rgba(3, 3, 3, 0.8); /* 背景颜色，含透明度 */
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* 垂直居中对齐子元素 */
+    justify-content: center; /* 水平居中对齐子元素 */
+    text-align: center; /* 文本居中 */
+    padding: 0 20px; /* 添加一些内边距 */
+}
+
+.photo-info > div {
+    padding: 0 20px; 
+}
+
+.photo-info .label, .photo-info .value {
+    display: block; /* 使label和value在不同行显示 */
+    white-space: nowrap; /* 防止内容换行 */
+    overflow: hidden; /* 超出部分隐藏 */
+    text-overflow: ellipsis; /* 超出部分显示省略号 */
+    
+}
+
+.photo-info .label {
+    font-weight: bold; 
+    color: #9d9d9d; 
+    margin-bottom: 5px; 
+    font-size: 14px;
+}
+
+.photo-info .value {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    color: #ccc;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.icon {
+    width: 18px; 
+    height: 18px;
+    margin-left: 12px;  
+    margin-right: 5px; 
+}
+
+/* 关闭按钮的样式 */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .content {
+        width: 90%;
+    }
+    .grid-sizer, .photo-wrapper {
+        width: 100%;
+    }
+    .site-header {
+        padding: 0 15px;
+    }
+    .header-links a {
+        padding: 0 10px;
+        font-size: 1em;
+    }
+    .nav-button {
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }    
+}
+
+@media (min-width: 601px) and (max-width: 1000px) {
+    .content {
+        width: 85%;
+    }
+    .grid-sizer, .photo-wrapper {
+        width: 48.5%;
+    }
+    .gutter-sizer {
+        width: 3%;
+    }
+}
