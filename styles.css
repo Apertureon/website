@@ -16,6 +16,11 @@ body, html {
     color: #fff;
 }
 
+.header-links {
+    display: flex;
+    align-items: center; 
+}
+
 .header-links a {
     color: #fff;
     text-decoration: none;
@@ -29,7 +34,7 @@ body, html {
 #language-icon {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
-    height: 25px; /* 根据需要调整图标大小 */
+    height: 30px; 
 }
 
 .main-navigation {
