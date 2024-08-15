@@ -26,12 +26,10 @@ body, html {
     border: none;
 }
 
-.header-links select {
-    outline: none; /* 去除焦点轮廓 */
-    color: #fff;
-    background-color: #333;
-    border: none;
-    font-size: 1em;
+#language-icon {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    height: 25px; /* 根据需要调整图标大小 */
 }
 
 .main-navigation {
@@ -45,7 +43,7 @@ body, html {
 }
 
 .nav-button {
-    padding: 10px 18px;
+    padding: 8px 16px;
     font-size: 1.2em;
     color: #fff;
     background-color: #000;
@@ -211,7 +209,7 @@ body, html {
         font-size: 1em;
     }
     .nav-button {
-        padding: 8px 12px;
+        padding: 6px 12px;
         font-size: 0.8em;
     }
     .modal-content {

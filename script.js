@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var translations = {};
 
     // 选择语言
-    document.getElementById('language-select').addEventListener('change', function() {
-        loadLanguage(this.value);
+    document.getElementById('language-icon').addEventListener('click', function() {
+        var currentLang = this.getAttribute('data-lang') || 'en'; // 默认语言为英文
+        var newLang = currentLang === 'en' ? 'zh' : 'en'; // 切换逻辑        
+        loadLanguage(newLang); // 调用加载语言的函数
+        this.setAttribute('data-lang', newLang); // 更新当前语言状态
     });
 
     function loadLanguage(lang) {
@@ -36,8 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading the language file:', error);
         });
     }
-    loadLanguage('en');
-    
+
     function toTitleCase(str) {
         // 先处理 'Z' 后跟数字的情况，将它们合并
         str = str.replace(/Z (\d+)/g, 'Z$1');
