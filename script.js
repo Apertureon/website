@@ -4,36 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const close = document.getElementsByClassName("close")[0];
     const infoToggle = document.querySelector('.info-toggle');
     const photoInfo = document.querySelector('.photo-info');
-
-    // 选择语言
-    document.getElementById('language-icon').addEventListener('click', async function() {
-        var currentLang = this.getAttribute('data-lang') || 'en'; // 默认语言为英文
-        var newLang = currentLang === 'en' ? 'zh' : 'en';
     
-        try {
-            const response = await fetch(`${newLang}.json`);
-            const data = await response.json();
-    
-            document.title = data.title;
-            document.getElementById('follow-link').textContent = data.follow;
-            document.getElementById('about-link').textContent = data.about;
-            const buttons = document.querySelectorAll('.nav-button');
-            buttons[0].textContent = data.featured;
-            buttons[1].textContent = data.explore;
-            buttons[2].textContent = data.lifestyle;
-            buttons[3].textContent = data.creative;
-            document.getElementById('show-info-button').textContent = data.showInfo;    
-            document.querySelector('#parameter .label').textContent = data.parameter;
-            document.querySelector('#location .label').textContent = data.location;
-            document.querySelector('#camera .label').textContent = data.camera;
-            document.querySelector('#lens .label').textContent = data.lens;
-    
-            // 更新当前语言状态
-            this.setAttribute('data-lang', newLang);
-        } catch (error) {
-            console.error('Error loading the language file:', error);
-        }
-    });
 
     function toTitleCase(str) {
         // 先处理 'Z' 后跟数字的情况，将它们合并
@@ -161,5 +132,34 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     
+    // 选择语言
+    document.getElementById('language-icon').addEventListener('click', async function() {
+        var currentLang = this.getAttribute('data-lang') || 'en'; // 默认语言为英文
+        var newLang = currentLang === 'en' ? 'zh' : 'en';
+    
+        try {
+            const response = await fetch(`${newLang}.json`);
+            const data = await response.json();
+    
+            document.title = data.title;
+            document.getElementById('follow-link').textContent = data.follow;
+            document.getElementById('about-link').textContent = data.about;
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons[0].textContent = data.featured;
+            buttons[1].textContent = data.explore;
+            buttons[2].textContent = data.lifestyle;
+            buttons[3].textContent = data.creative;
+            document.getElementById('show-info-button').textContent = data.showInfo;    
+            document.querySelector('#parameter .label').textContent = data.parameter;
+            document.querySelector('#location .label').textContent = data.location;
+            document.querySelector('#camera .label').textContent = data.camera;
+            document.querySelector('#lens .label').textContent = data.lens;
+    
+            // 更新当前语言状态
+            this.setAttribute('data-lang', newLang);
+        } catch (error) {
+            console.error('Error loading the language file:', error);
+        }
+    });
     
 });
