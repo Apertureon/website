@@ -4,41 +4,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const close = document.getElementsByClassName("close")[0];
     const infoToggle = document.querySelector('.info-toggle');
     const photoInfo = document.querySelector('.photo-info');
-    var translations = {};
 
     // 选择语言
-    document.getElementById('language-icon').addEventListener('click', function() {
+    document.getElementById('language-icon').addEventListener('click', async function() {
         var currentLang = this.getAttribute('data-lang') || 'en'; // 默认语言为英文
-        var newLang = currentLang === 'en' ? 'zh' : 'en'; // 切换逻辑        
-        loadLanguage(newLang); // 调用加载语言的函数
-        this.setAttribute('data-lang', newLang); // 更新当前语言状态
-    });
-
-    function loadLanguage(lang) {
-        fetch(`${lang}.json`)  
-        .then(response => response.json())
-        .then(data => {
+        var newLang = currentLang === 'en' ? 'zh' : 'en';
+    
+        try {
+            const response = await fetch(`${newLang}.json`);
+            const data = await response.json();
+    
             document.title = data.title;
             document.getElementById('follow-link').textContent = data.follow;
             document.getElementById('about-link').textContent = data.about;
-            document.querySelectorAll('.nav-button')[0].textContent = data.featured;
-            document.querySelectorAll('.nav-button')[1].textContent = data.explore;
-            document.querySelectorAll('.nav-button')[2].textContent = data.lifestyle;
-            document.querySelectorAll('.nav-button')[3].textContent = data.creative;
-            document.getElementById('show-info-button').textContent = data.showInfo;
-            // 更新模态窗口相关的文本
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons[0].textContent = data.featured;
+            buttons[1].textContent = data.explore;
+            buttons[2].textContent = data.lifestyle;
+            buttons[3].textContent = data.creative;
+            document.getElementById('show-info-button').textContent = data.showInfo;    
             document.querySelector('#parameter .label').textContent = data.parameter;
             document.querySelector('#location .label').textContent = data.location;
             document.querySelector('#camera .label').textContent = data.camera;
             document.querySelector('#lens .label').textContent = data.lens;
-            translations.close = data.close;
-            translations.showInfo = data.showInfo;
-            // 继续更新其他需要翻译的部分
-        })
-        .catch(error => {
+    
+            // 更新当前语言状态
+            this.setAttribute('data-lang', newLang);
+        } catch (error) {
             console.error('Error loading the language file:', error);
-        });
-    }
+        }
+    });
 
     function toTitleCase(str) {
         // 先处理 'Z' 后跟数字的情况，将它们合并
@@ -140,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.style.opacity = 0;
                 setTimeout(() => {
                     modal.style.display = 'none'; 
-                    // infoToggle.click(); // 模拟点击infoToggle按钮
                 }, 500);
             };
 
@@ -155,11 +149,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         photoInfo.style.opacity = 1;
                     }, 10);                                        
                     this.style.transform = 'translateX(-50%) translateY(-32vh)'; // 向上移动按钮
-                    this.textContent = translations.close; // 更改按钮文本
                     isPanelOpen = true;
                 } else {                   
                     this.style.transform = 'translateX(-50%) translateY(0)'; // 将按钮移回原位
-                    this.textContent = translations.showInfo; // 恢复按钮文本
                     photoInfo.style.opacity = 0;                    
                     setTimeout(() => {
                         photoInfo.style.display = 'none'; // 完全隐藏信息面板
