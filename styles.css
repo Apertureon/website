@@ -6,79 +6,120 @@ body, html {
     background-color: #000;
 }
 
-.site-header {
+/* Header部分 */
+.header {
+    position: relative;
+    height: 7vh;
     display: flex;
-    height: 10vh;
-    align-items: center; 
-    justify-content: space-between;
-    padding: 0 50px;
-    background-color: #333;
-    color: #fff;
+    align-items: center;
+    background-color: #333; /* 你可以按需修改背景色 */
+    padding: 0 35px;
+    border-bottom: 2px solid #ddd; /* 可选边框 */
 }
-
-.header-links {
-    display: flex;
-    align-items: center; 
-}
-
-.header-links a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0 20px;
-    font-size: 1.3em;
+  
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 1.5rem;
     font-weight: bold;
-    cursor: pointer;
-    border: none;
+    color: rgb(242, 164, 7);
+    white-space: nowrap; /*禁止文本换行*/
 }
 
-#language-icon {
+.header-right {
+    margin-left: auto;
+}
+
+.header-right button {
+    background: none;
+    border: none;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
-    height: 30px; 
 }
 
-.main-navigation {
+.header-right img {
+    height: 30px;
+}
+
+/* 导航区域 */    
+.navigation {
     display: flex;
     justify-content: center;
     padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.9);
+    /* flex-direction: column; */   
 }
 
-.nav-button {
-    padding: 8px 16px;
-    font-size: 1.2em;
-    color: #fff;
-    background-color: #000;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-    font-weight: bold;
-    border-radius: 20px;
-    transition: background-color 0.5s, color 0.5s;
+.navigation button {
+  margin: 0 2px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  transition: background-color 0.6s, color 0.6s, transform 0.3s;
 }
 
-.nav-button.active {
-    background-color: #fff; 
-    color: #000; 
+.navigation button:first-child {
+  border-radius: 0.5em 0 0 0.5em;
+}
+.navigation button:last-child {
+  border-radius: 0 0.5em 0.5em 0;
 }
 
-.nav-button:hover { 
-    color: #666; 
+.navigation button.active {
+  background-color: rgb(242, 164, 7);;
+  color: #333;
 }
 
+.navigation button:hover {
+  transform: scale(1.05);
+  /* color: #FBDA41; */
+}
+
+/* ===== Content & Category Blocks ===== */
 .content {
-    width: 80%;
-    margin: 0 auto;
+  padding: 20px;
 }
 
+.category-block {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.category-block h2 {
+  margin: 0 0 16px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== Gallery Masonry Setup ===== */
 .gallery {
-    width: 100%;
-    margin: auto;
+  width: 100%;
+  margin: auto;
+  /* clearfix */
+}
+.gallery::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
+/* these two help Isotope determine column width & gutter */
+.grid-sizer {
+  width: 32%;    
+}
+.gutter-sizer {
+  width: 2%;         /* 列间隔大小 */
+}
+
+/* ===== Photo Items ===== */
 .photo-wrapper {
     position: relative;
     overflow: hidden;
@@ -88,14 +129,9 @@ body, html {
     transition: transform 0.3s ease;
 }
 
-.grid-sizer, .photo-wrapper {
-    width: 32%; 
-}
+/* spacer div is inline-styled for aspect ratio */
 
-.gutter-sizer {
-    width: 2%;
-}
-
+/* absolutely position the img to fill the wrapper */
 .photo-wrapper img {
     position: absolute;
     top: 0;
@@ -105,6 +141,9 @@ body, html {
     object-fit: cover;
     cursor: pointer;
 }
+
+
+
 
 .modal {
     display: none; 
@@ -116,9 +155,9 @@ body, html {
     bottom: 0;
     width: 100%; 
     height: 100%; 
-    overflow: hidden; /* 防止内容滚动 */
+    overflow: hidden; 
     background-color: rgba(0, 0, 0, 0.9); 
-  }
+}
 
 .modal-content {
     display: block;
@@ -200,9 +239,9 @@ body, html {
 }
 
 @media (max-width: 600px) {
-    .content {
+    /* .content {
         width: 90%;
-    }
+    } */
     .grid-sizer, .photo-wrapper {
         width: 100%;
     }
@@ -251,9 +290,9 @@ body, html {
 }
 
 @media (min-width: 601px) and (max-width: 1000px) {
-    .content {
+    /* .content {
         width: 85%;
-    }
+    } */
     .grid-sizer, .photo-wrapper {
         width: 48.5%;
     }

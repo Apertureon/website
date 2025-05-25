@@ -1,165 +1,180 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const gallery = document.querySelector('.gallery');
-    const modal = document.getElementById('Modal');
-    const close = document.getElementsByClassName("close")[0];
-    const infoToggle = document.querySelector('.info-toggle');
-    const photoInfo = document.querySelector('.photo-info');
+document.addEventListener('DOMContentLoaded', function() {   
+    const contentEl = document.getElementById('content');
+    const navButtons = document.querySelectorAll('.navigation button');
+    const modal = document.getElementById("Modal");
+    const close = modal.querySelector('.close');
+
+    let photosData = [];   // 全局保存 JSON 数据
+    let isoInstances = []; // 保存所有当前页面的 Isotope 实例
+
+
+    // 1. 把 data-category 值映射到「区块标题」列表
+    const layoutMap = {
+        journey: [
+            { key: 'britain', title: 'United Kingdom' },
+            { key: 'france', title: 'France' },
+            { key: 'spain', title: 'Spain' },
+            // … 可继续添加
+        ],
+        nature: [
+            { key: 'plants', title: 'Plants' },
+            { key: 'animals', title: 'Animals' },
+            // … 可继续添加
+        ],
+        interest: [
+            { key: 'vehicle', title: 'Vehicle' },
+            { key: 'aircraft', title: 'Aircraft' },
+            { key: 'astronomy', title: 'Astrophotography' },
+            // … 可继续添加
+        ]
+    };
     
+    // 2. 通用 fetchData
+    async function fetchData(fileName) {
+        const response  = await fetch(fileName);
+        const data = await response.json();
+        return data;
+    }
 
-    function toTitleCase(str) {
-        // 先处理 'Z' 后跟数字的情况，将它们合并
-        str = str.replace(/Z (\d+)/g, 'Z$1');
-    
-        return str.split(' ').map(function(word) {
-            // 特殊处理 NIKON 和 NIKKOR
-            if (word.toUpperCase() === "NIKON" || word.toUpperCase() === "NIKKOR") {
-                return word[0].toUpperCase() + word.substr(1).toLowerCase();
-            }
-            return word;
-        }).join(' ');
-    }    
+    // 3. 根据当前 category 动态渲染所有区块并初始化 Isotope
+    function buildContent(category) {
+        // 清空旧实例 & DOM
+        isoInstances.forEach(iso => iso.destroy());
+        isoInstances = [];
+        contentEl.innerHTML = '';
 
-    fetch('imagesInfo.json')
-        .then(response => response.json())
-        .then(data => {
-            // 创建所有图片的容器
-            const containers = data.map(photo => {
-                const imgDiv = document.createElement('div');
-                imgDiv.className = 'photo-wrapper';
+        const blocks = layoutMap[category] || [];
+        blocks.forEach(block => {
+            // —— 3.1 创建区块 & 标题 ——  
+            const section = document.createElement('section');
+            section.className = 'category-block';
+            section.innerHTML = `<h2>${block.title}</h2>
+            <div class="gallery">
+                <div class="grid-sizer"></div>
+                <div class="gutter-sizer"></div>
+            </div>`;
+            contentEl.appendChild(section);
 
-                // 根据关键词添加类
-                photo.keywords.split(';').forEach(keyword => {
-                    imgDiv.classList.add(keyword.trim().toLowerCase().replace(/\s+/g, '-'));
-                });
+            const gallery = section.querySelector('.gallery');
 
-                // 创建一个透明的占位元素以保持宽高比
+            // —— 3.2 把所有图片都 append 进来，只要给 photo-wrapper 加上关键词 class ——  
+            photosData.forEach(photo => {
+                const classes = photo.keywords
+                    .split(';')
+                    .map(k=>k.trim().toLowerCase().replace(/\s+/g,'-'));
+                // 无论是不是当前 block.key 都先 append
+                const wrap = document.createElement('div');
+                wrap.classList.add('photo-wrapper', ...classes);
+                // spacer 保持宽高比
                 const spacer = document.createElement('div');
-                spacer.style.paddingTop = `${(photo.height / photo.width) * 100}%`;
-                imgDiv.appendChild(spacer);
-
-                // 准备图片元素，但不设置源
+                spacer.style.paddingTop = `${photo.height/photo.width*100}%`;
+                wrap.appendChild(spacer);
+                // img
                 const img = document.createElement('img');
-                img.alt = "Photo";
-                img.style.opacity = 0; // 初始透明度设为0
-                img.style.transition = 'opacity 1s ease-in'; // 添加渐显效果
-                imgDiv.appendChild(img);
+                img.alt = photo.title || 'Photo';
+                img.style.opacity = 0;
+                img.style.transition = 'opacity 1s';
+                wrap.appendChild(img);
+                gallery.appendChild(wrap);
 
-                return imgDiv;
+                // 点击打开 Modal
+                wrap.addEventListener('click', () => showModal(photo));
             });
 
-            // 将容器添加到画廊并初始化 Masonry 布局
-            containers.forEach(container => gallery.appendChild(container));
+            // —— 3.3 用 filter 参数初始化 Isotope ——  
             const iso = new Isotope(gallery, {
-                itemSelector: '.photo-wrapper',
-                percentPosition: true,
-                filter: '.featured',
-                masonry: {
-                    columnWidth: '.grid-sizer',
-                    gutter: '.gutter-sizer'
-                }    
+            itemSelector: '.photo-wrapper',
+            percentPosition: true,
+            filter: `.${block.key}`,      // 只显示含有 block.key 这个 class 的 item
+            sortBy: 'random',
+            masonry: {
+                columnWidth: '.grid-sizer',
+                gutter: '.gutter-sizer'
+            }
             });
+            isoInstances.push(iso);
 
-            // 绑定筛选按钮事件
-            document.querySelectorAll('.nav-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    // 清除所有按钮的激活状态
-                    document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    iso.arrange({ filter: this.getAttribute('data-filter') });
-                });
-            });
-
-            // 默认激活 Featured 按钮
-            const defaultActiveButton = document.querySelector('.nav-button[data-filter=".featured"]');
-            defaultActiveButton.classList.add('active');
-
-            // 布局初始化完成后设置图片并开始加载
-            data.forEach((photo, index) => {
-                const img = containers[index].querySelector('img');
-                img.src = photo.thumbnailPath; 
-                img.onload = () => img.style.opacity = 1; // 图片加载完成后逐渐显示
-
-                // 添加点击事件
-                img.onclick = () => {
-                    const modalImg = document.getElementById("ModalImg");
-                    const imgParameter = document.getElementById('parameter').querySelector('.value');
-                    const imgLocation = document.getElementById('location').querySelector('.value');
-                    const imgCamera = document.getElementById('camera').querySelector('.value');
-                    const imgLens = document.getElementById('lens').querySelector('.value');
-
-                    // 显示图片和参数
-                    modal.style.display = "block";                    
-                    setTimeout(() => modal.style.opacity = 1, 10);
-                    modalImg.src = photo.filePath;
-                    
-                    imgParameter.innerHTML =
-                        '<img src="icons/aperture-outline.svg" alt="Camera" class="icon">' + (photo.aperture || 'unknown') +
-                        '<img src="icons/timer-outline.svg" alt="Shutter Speed" class="icon">' + (photo.shutterSpeed || 'unknown') +
-                        '<img src="icons/iso-outline.svg" alt="ISO" class="icon">' + (photo.iso || 'unknown');
-                    imgLocation.innerHTML = `${photo.country || 'unknown'} · ${photo.city || 'unknown'}`;
-                    imgCamera.innerHTML = `${toTitleCase(photo.cameraModel || 'unknown')}`;
-                    imgLens.innerHTML = `${toTitleCase(photo.lensModel || 'unknown')}`;
-                };
-            });
-
-            close.onclick = function() {
-                modal.style.opacity = 0;
-                setTimeout(() => {
-                    modal.style.display = 'none'; 
-                }, 500);
-            };
-
-            // 控制信息面板和按钮的行为
-            let isPanelOpen = false;             
-            infoToggle.addEventListener('click', function() {
-                if (!isPanelOpen) {
-                    photoInfo.style.display = 'flex'; // 显示信息面板
-                    photoInfo.style.flexDirection = 'column'; // 确保列布局
-                    photoInfo.style.height = '32%';
-                    setTimeout(() => {
-                        photoInfo.style.opacity = 1;
-                    }, 10);                                        
-                    this.style.transform = 'translateX(-50%) translateY(-32vh)'; // 向上移动按钮
-                    isPanelOpen = true;
-                } else {                   
-                    this.style.transform = 'translateX(-50%) translateY(0)'; // 将按钮移回原位
-                    photoInfo.style.opacity = 0;                    
-                    setTimeout(() => {
-                        photoInfo.style.display = 'none'; // 完全隐藏信息面板
-                    }, 500); // 等待渐隐完成                    
-                    isPanelOpen = false;
-                }
+            // —— 3.4 图片懒加载 & 渐显 ——  
+            gallery.querySelectorAll('img').forEach((imgEl, idx) => {
+                // 按顺序对应 photosData
+                const photo = photosData[idx];
+                imgEl.src = photo.thumbnailPath;
+                imgEl.onload = () => imgEl.style.opacity = 1;
             });
         });
-    
-    // 选择语言
-    document.getElementById('language-icon').addEventListener('click', async function() {
-        var currentLang = this.getAttribute('data-lang') || 'en'; // 默认语言为英文
-        var newLang = currentLang === 'en' ? 'zh' : 'en';
-    
-        try {
-            const response = await fetch(`${newLang}.json`);
-            const data = await response.json();
-    
-            document.title = data.title;
-            document.getElementById('follow-link').textContent = data.follow;
-            document.getElementById('about-link').textContent = data.about;
-            const buttons = document.querySelectorAll('.nav-button');
-            buttons[0].textContent = data.featured;
-            buttons[1].textContent = data.explore;
-            buttons[2].textContent = data.lifestyle;
-            buttons[3].textContent = data.creative;
-            document.getElementById('show-info-button').textContent = data.showInfo;    
-            document.querySelector('#parameter .label').textContent = data.parameter;
-            document.querySelector('#location .label').textContent = data.location;
-            document.querySelector('#camera .label').textContent = data.camera;
-            document.querySelector('#lens .label').textContent = data.lens;
-    
-            // 更新当前语言状态
-            this.setAttribute('data-lang', newLang);
-        } catch (error) {
-            console.error('Error loading the language file:', error);
-        }
+    }
+
+    // 4. 初始化：先加载数据，再渲染默认 category（journey）
+    fetchData('imagesInfo.json')
+        .then(data => {
+        photosData = data;
+        buildContent('journey');
+        })
+        .catch(err => console.error(err));
+
+    // 5. 监听导航按钮切换
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+        // 更新导航激活状态
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const category = btn.getAttribute('data-category');
+        buildContent(category);
+        });
     });
+});
+
+
+function toTitleCase(str) {
+    // 先处理 'Z' 后跟数字的情况，将它们合并
+    str = str.replace(/Z (\d+)/g, 'Z$1');
+
+    return str.split(' ').map(function(word) {
+        // 特殊处理 NIKON 和 NIKKOR
+        if (word.toUpperCase() === "NIKON" || word.toUpperCase() === "NIKKOR") {
+            return word[0].toUpperCase() + word.substr(1).toLowerCase();
+        }
+        return word;
+    }).join(' ');
+}  
     
+
+// 显示模态窗口的函数
+function showModal(photo) {
+    // 获取模态窗口及内部元素
+    const modal = document.getElementById("Modal");
+    const modalImg = document.getElementById("ModalImg");
+    const imgParameter = document.getElementById('parameter').querySelector('.value');
+    const imgLocation = document.getElementById('location').querySelector('.value');
+    const imgCamera = document.getElementById('camera').querySelector('.value');
+    const imgLens = document.getElementById('lens').querySelector('.value');
+  
+    // 更新模态窗口中的图片及信息
+    modalImg.src = photo.filePath;  // 显示全图或大图，根据实际需求选择 filePath 或 thumbnailPath
+  
+    // 使用模板字符串来构建参数显示内容
+    imgParameter.innerHTML = `
+      <img src="icons/aperture-outline.svg" alt="Aperture" class="icon">
+      ${photo.aperture || 'unknown'}
+      <img src="icons/timer-outline.svg" alt="Shutter Speed" class="icon">
+      ${photo.shutterSpeed || 'unknown'}
+      <img src="icons/iso-outline.svg" alt="ISO" class="icon">
+      ${photo.iso || 'unknown'}
+    `;
+    imgLocation.innerHTML = `${photo.country || 'unknown'} · ${photo.city || 'unknown'}`;
+    imgCamera.innerHTML = `${toTitleCase(photo.cameraModel || 'unknown')}`;
+    imgLens.innerHTML = `${toTitleCase(photo.lensModel || 'unknown')}`;
+  
+    // 显示模态窗口（可以添加过渡效果）
+    modal.style.display = "block";
+    // 稍微延时让 CSS 过渡生效
+    setTimeout(() => modal.style.opacity = 1, 10);
+}
+
+close.addEventListener('click', () => {
+    modal.style.opacity = 0;
+    // 过渡完成后再隐藏
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 500);
 });
