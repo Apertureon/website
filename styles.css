@@ -239,9 +239,9 @@ body, html {
 }
 
 @media (max-width: 600px) {
-    /* .content {
+    .category-block {
         width: 90%;
-    } */
+    }
     .grid-sizer, .photo-wrapper {
         width: 100%;
     }
@@ -290,9 +290,9 @@ body, html {
 }
 
 @media (min-width: 601px) and (max-width: 1000px) {
-    /* .content {
+    .category-block {
         width: 85%;
-    } */
+    }
     .grid-sizer, .photo-wrapper {
         width: 48.5%;
     }
