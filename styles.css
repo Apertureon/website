@@ -112,7 +112,7 @@ body, html {
 }
 
 /* these two help Isotope determine column width & gutter */
-.grid-sizer {
+.grid-sizer, .photo-wrapper {
   width: 32%;    
 }
 .gutter-sizer {
