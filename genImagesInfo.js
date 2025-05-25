@@ -3,8 +3,8 @@ const path = require('path');
 const exifReader = require('exifreader');
 
 // 图片目录
-const imagesDirectory = './images';
-const thumbnailsDirectory = './thumbnails';
+const imagesDirectory = './website/images';
+const thumbnailsDirectory = './website/thumbnails';
 
 // 定义一个函数来处理关键词的格式化
 function formatKeywords(keywords) {
