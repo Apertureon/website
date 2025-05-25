@@ -2,65 +2,73 @@ const fs = require('fs');
 const path = require('path');
 const exifReader = require('exifreader');
 
-// 图片目录
-const imagesDirectory = './website/images';
-const thumbnailsDirectory = './website/thumbnails';
+// 脚本所在目录，比如 …/website
+const scriptDir = __dirname;
 
-// 定义一个函数来处理关键词的格式化
+// 磁盘上的源目录
+const imagesDirAbs     = path.join(scriptDir, 'images');
+const thumbsDirAbs     = path.join(scriptDir, 'thumbnails');
+
+// JSON 里想要的相对前缀
+const imagesDirRel = 'images';
+const thumbsDirRel = 'thumbnails';
+
 function formatKeywords(keywords) {
-    if (Array.isArray(keywords)) {
-        // 如果是数组，提取所有描述并用分号分隔
-        return keywords.map(kw => kw.description).join(';');
-    } else if (typeof keywords === 'object' && keywords.description) {
-        // 如果是单个对象并且有描述属性，直接返回描述
-        return keywords.description;
-    }
-    return 'Unknown';
+  if (Array.isArray(keywords)) {
+    return keywords.map(kw => kw.description).join(';');
+  } else if (keywords && keywords.description) {
+    return keywords.description;
+  }
+  return 'Unknown';
 }
 
-// 将路径中的反斜杠替换为正斜杠的函数
-function normalizePath(path) {
-    return path.replace(/\\/g, '/');
+function normalizePath(p) {
+  return p.replace(/\\/g, '/');
 }
 
-// 异步函数来处理图像
-async function processImages(directory, thumbnailDirectory) {
-    const imageFiles = fs.readdirSync(directory);
-    const imagesInfo = [];
+async function processImages(dirAbs, dirRel, thumbsAbs, thumbsRel) {
+  if (!fs.existsSync(dirAbs)) {
+    console.error(`Error: images directory not found at ${dirAbs}`);
+    return;
+  }
+  const imageFiles = fs.readdirSync(dirAbs);
+  const imagesInfo = [];
 
-    for (let file of imageFiles) {
-        const filePath = normalizePath(path.join(directory, file));
-        const thumbnailPath = normalizePath(path.join(thumbnailDirectory, file));
+  for (let file of imageFiles) {
+    // 1. 本地绝对路径用于读取元数据
+    const absPath      = path.join(dirAbs, file);
+    const absThumbPath = path.join(thumbsAbs, file);
 
-        const data = fs.readFileSync(filePath);
-        const tags = exifReader.load(data);
-        
-        // console.log(`Keywords for ${file}:`, tags['Keywords'].description);
-        // 创建图像信息对象
-        const imageInfo = {
-            filename: file,
-            filePath: filePath,
-            thumbnailPath: thumbnailPath,
-            width: tags['Image Width'] ? tags['Image Width'].value : 'Unknown',
-            height: tags['Image Height'] ? tags['Image Height'].value : 'Unknown',
-            cameraModel: tags['Model'] ? tags['Model'].description : 'Unknown',
-            lensModel: tags['LensModel'] ? tags['LensModel'].description : 'Unknown',
-            aperture: tags['FNumber'] ? tags['FNumber'].description : 'Unknown',
-            shutterSpeed: tags['ExposureTime'] ? tags['ExposureTime'].description : 'Unknown',
-            iso: tags['ISOSpeedRatings'] ? tags['ISOSpeedRatings'].value : 'Unknown',
-            keywords: formatKeywords(tags['Keywords']),
-            country: tags['Country'] ? tags['Country'].description : 'Unknown',
-            city: tags['City'] ? tags['City'].description : 'Unknown'
-            
-        };
+    // 2. JSON 里保存的相对路径
+    const relPath      = normalizePath(path.join(dirRel, file));
+    const relThumbPath = normalizePath(path.join(thumbsRel, file));
 
-        imagesInfo.push(imageInfo);
-    }
+    // 3. 读取并解析 EXIF
+    const buffer = fs.readFileSync(absPath);
+    const tags   = exifReader.load(buffer);
 
-    // 写入JSON文件
-    fs.writeFileSync('./imagesInfo.json', JSON.stringify(imagesInfo, null, 2));        
-    console.log("ImageInfo script generated successfully!");
+    imagesInfo.push({
+      filename:      file,
+      filePath:      relPath,
+      thumbnailPath: relThumbPath,
+      width:         tags['Image Width']     ? tags['Image Width'].value     : 'Unknown',
+      height:        tags['Image Height']    ? tags['Image Height'].value    : 'Unknown',
+      cameraModel:   tags['Model']           ? tags['Model'].description     : 'Unknown',
+      lensModel:     tags['LensModel']       ? tags['LensModel'].description : 'Unknown',
+      aperture:      tags['FNumber']         ? tags['FNumber'].description   : 'Unknown',
+      shutterSpeed:  tags['ExposureTime']    ? tags['ExposureTime'].description : 'Unknown',
+      iso:           tags['ISOSpeedRatings'] ? tags['ISOSpeedRatings'].value   : 'Unknown',
+      keywords:      formatKeywords(tags['Keywords']),
+      country:       tags['Country']         ? tags['Country'].description   : 'Unknown',
+      city:          tags['City']            ? tags['City'].description      : 'Unknown'
+    });
+  }
+
+  // 写文件到 website 下的 imagesInfo.json
+  const outPath = path.join(scriptDir, 'imagesInfo.json');
+  fs.writeFileSync(outPath, JSON.stringify(imagesInfo, null, 2), 'utf8');
+  console.log(`Generated ${outPath} with ${imagesInfo.length} entries.`);
 }
 
-// 执行函数
-processImages(imagesDirectory, thumbnailsDirectory);
+processImages(imagesDirAbs, imagesDirRel, thumbsDirAbs, thumbsDirRel);
+
