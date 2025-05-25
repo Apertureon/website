@@ -122,6 +122,14 @@ document.addEventListener('DOMContentLoaded', function() {
         buildContent(category);
         });
     });
+
+    close.addEventListener('click', () => {
+        modal.style.opacity = 0;
+        // 过渡完成后再隐藏
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 500);
+    });
 });
 
 
@@ -171,10 +179,3 @@ function showModal(photo) {
     setTimeout(() => modal.style.opacity = 1, 10);
 }
 
-close.addEventListener('click', () => {
-    modal.style.opacity = 0;
-    // 过渡完成后再隐藏
-    setTimeout(() => {
-        modal.style.display = 'none';
-    }, 500);
-});
