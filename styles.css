@@ -22,7 +22,7 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: rgb(242, 164, 7);
     white-space: nowrap; /*禁止文本换行*/
@@ -45,19 +45,23 @@ body, html {
 
 /* 导航区域 */    
 .navigation {
+    position: sticky;
+    top: -10px;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.9);
     display: flex;
     justify-content: center;
-    padding-top: 25px;
-    padding-bottom: 15px;
+    padding-top: 30px;
+    padding-bottom: 20px;
     /* flex-direction: column; */   
 }
 
 .navigation button {
   margin: 0 2px;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: none;
   cursor: pointer;
-  font-size: 1.1em;
+  font-size: 1.2rem;
   font-weight: bold;
   color: #fff;
   background-color: #333;
@@ -72,8 +76,8 @@ body, html {
 }
 
 .navigation button.active {
-  background-color: rgb(242, 164, 7);;
-  color: #333;
+  background-color: rgb(242, 164, 7);
+  color: #111;
 }
 
 .navigation button:hover {
@@ -202,7 +206,7 @@ body, html {
 
 .photo-info .label {
     font-weight: bold; 
-    color: #9d9d9d; 
+    color: rgb(242, 164, 7); 
     margin-bottom: 5px; 
     font-size: 14px;
 }
@@ -246,16 +250,10 @@ body, html {
     .grid-sizer, .photo-wrapper {
         width: 100%;
     }
-    .site-header {
-        padding: 0 15px;
-    }
-    .header-links a {
-        padding: 0 10px;
-        font-size: 1em;
-    }
-    .nav-button {
-        padding: 6px 12px;
-        font-size: 0.8em;
+    
+    .navigation button {
+        padding: 10px 20px;
+        font-size: 1rem;
     }
     .modal-content {
         bottom: 50%;
@@ -272,16 +270,16 @@ body, html {
         padding: 4px 20px; 
     }
     .info-toggle {
-        display: none;
+        display: block;
         position: fixed;
-        bottom: 1%; 
+        bottom: 3%; 
         left: 50%;
         border: none;
         transition: transform 0.5s ease-in-out;
         transform: translateX(-50%);
         background-color: #333;
-        color: #ccc;
-        font-size: 15px;
+        color: rgb(242, 164, 7);
+        font-size: 1.0rem;
         font-weight: bold;
         padding: 8px 20px;
         border-radius: 30px;

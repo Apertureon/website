@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.navigation button');
     const modal = document.getElementById("Modal");
     const close = modal.querySelector('.close');
+    const infoToggle = document.querySelector('.info-toggle');
+    const photoInfo = document.querySelector('.photo-info');
 
     let photosData = [];   // 全局保存 JSON 数据
     let isoInstances = []; // 保存所有当前页面的 Isotope 实例
@@ -129,6 +131,28 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             modal.style.display = 'none';
         }, 500);
+    });
+
+    // 控制信息面板和按钮的行为
+    let isPanelOpen = false;             
+    infoToggle.addEventListener('click', function() {
+        if (!isPanelOpen) {
+            photoInfo.style.display = 'flex'; // 显示信息面板
+            photoInfo.style.flexDirection = 'column'; // 确保列布局
+            photoInfo.style.height = '28%';
+            setTimeout(() => {
+                photoInfo.style.opacity = 1;
+            }, 10);                                        
+            this.style.transform = 'translateX(-50%) translateY(-26vh)'; // 向上移动按钮
+            isPanelOpen = true;
+        } else {                   
+            this.style.transform = 'translateX(-50%) translateY(0)'; // 将按钮移回原位
+            photoInfo.style.opacity = 0;                    
+            setTimeout(() => {
+                photoInfo.style.display = 'none'; // 完全隐藏信息面板
+            }, 500); // 等待渐隐完成                    
+            isPanelOpen = false;
+        }
     });
 });
 
